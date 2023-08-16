@@ -1,0 +1,55 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ entityId ? 'Edit Job' : 'Create Job' }}</h5>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="jobForm">
+        <div class="my-2">
+          <label for="company">Company Name</label>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Company Name"
+            formControlName="company"
+          />
+        </div>
+        <div class="my-2">
+          <label for="position">Position</label>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Position"
+            formControlName="position"
+          />
+        </div>
+
+        <div>
+          <div
+            class="form-check form-check-inline"
+            *ngFor="let status of allStatus; index as i"
+          >
+            <input
+              class="form-check-input"
+              type="radio"
+              [id]="'status' + i"
+              formControlName="status"
+              [value]="status.value"
+            />
+            <label class="form-check-label" [for]="'status' + i">
+              {{ status.label }}
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="close()">
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="submit()">
+        {{ entityId ? 'Update' : 'Submit' }}
+      </button>
+    </div>
+  </div>
+</div>

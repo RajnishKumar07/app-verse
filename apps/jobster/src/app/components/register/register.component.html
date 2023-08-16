@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-6">
+      <form [formGroup]="registerForm">
+        <div class="card shadow-lg">
+          <div class="card-header text-center">
+            <h3>Create a new account</h3>
+            <p class="card-text">It's quick and easy.</p>
+          </div>
+          <div class="card-body">
+            <div>
+              <label for="username">Name</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </span>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control form-control-lg"
+                  placeholder="Name"
+                  formControlName="name"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="Password">Email</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+                <input
+                  type="text"
+                  id="email"
+                  class="form-control form-control-lg"
+                  placeholder="Email"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="Password">Password</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+                <input
+                  type="text"
+                  id="password"
+                  class="form-control form-control-lg"
+                  placeholder="Password"
+                  formControlName="password"
+                />
+              </div>
+            </div>
+
+            <div class="my-4 text-center">
+              <button
+                class="btn btn-outline-primary w-100"
+                type="button"
+                (click)="RegisterFn()"
+              >
+                Register
+              </button>
+              <a routerLink="/login" class="nav-link text-primary fs-5 mt-3"
+                >Already have an account?</a
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

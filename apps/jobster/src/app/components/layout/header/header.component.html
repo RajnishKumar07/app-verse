@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Jobster</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleNav()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ 'show-navbar': collapsed }"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="'/jobs'"
+            [routerLinkActive]="'active'"
+            >All Jobs</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Create Jobs</a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center justify-content-center gap-2 mx-3">
+        <span> Hello,{{ coreService.user().name | titlecase }} </span>
+        <span role="button" (click)="logOut()">
+          <i class="fa fa-sign-out fa-2x"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</nav>
