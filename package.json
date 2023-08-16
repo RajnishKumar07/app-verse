@@ -2,7 +2,12 @@
   "name": "@app-verse/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "serve:jobster": "ng serve jobster",
+    "serve:jobster:prod": "ng serve jobster --configuration=production",
+    "build:jobster": "nx run jobster:build:development",
+    "build:jobster:prod": "nx run jobster:build:production"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.1.0",
