@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-6">
-      <form [formGroup]="registerForm">
+    <div class="col-12 col-md-10 col-lg-4">
+      <form [formGroup]="registerForm" (ngSubmit)="RegisterFn()">
         <div class="card shadow-lg">
           <div class="card-header text-center">
             <h3>Create a new account</h3>
             <p class="card-text">It's quick and easy.</p>
           </div>
           <div class="card-body">
-            <div>
-              <label for="username">Name</label>
-              <div class="input-group mb-3">
+            <div class="mb-3">
+              <label for="name">Name</label>
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </span>
@@ -22,10 +22,15 @@
                   formControlName="name"
                 />
               </div>
+              <error
+                *ngIf="isSubmited"
+                [control]="registerForm.controls['name']"
+                [fieldName]="'name'"
+              ></error>
             </div>
-            <div>
+            <div class="mb-3">
               <label for="Password">Email</label>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-envelope" aria-hidden="true"></i>
                 </span>
@@ -37,10 +42,15 @@
                   formControlName="email"
                 />
               </div>
+              <error
+                *ngIf="isSubmited"
+                [control]="registerForm.controls['email']"
+                [fieldName]="'email'"
+              ></error>
             </div>
-            <div>
+            <div class="mb-3">
               <label for="Password">Password</label>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
@@ -52,14 +62,15 @@
                   formControlName="password"
                 />
               </div>
+              <error
+                *ngIf="isSubmited"
+                [control]="registerForm.controls['password']"
+                [fieldName]="'password'"
+              ></error>
             </div>
 
             <div class="my-4 text-center">
-              <button
-                class="btn btn-outline-primary w-100"
-                type="button"
-                (click)="RegisterFn()"
-              >
+              <button class="btn btn-outline-primary w-100" type="submit">
                 Register
               </button>
               <a routerLink="/login" class="nav-link text-primary fs-5 mt-3"

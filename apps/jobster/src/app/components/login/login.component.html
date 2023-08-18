@@ -1,34 +1,41 @@
 <div class="container">
   <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-4">
+    <div class="col-12 col-md-10 col-lg-4">
       <form [formGroup]="loginForm" (ngSubmit)="loginFn()">
         <div class="card shadow-lg">
           <div class="card-header text-center">
             <h3>Log in to Jobster</h3>
           </div>
           <div class="card-body">
-            <div>
-              <label for="username">Username</label>
-              <div class="input-group mb-3">
+            <div class="mb-3">
+              <label for="username">Email</label>
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </span>
                 <input
+                  id="username"
                   type="text"
                   class="form-control form-control-lg"
-                  placeholder="Username"
+                  placeholder="Email"
                   formControlName="username"
                 />
               </div>
+              <error
+                *ngIf="isSubmited"
+                [control]="loginForm.controls['username']"
+                [fieldName]="'username'"
+              ></error>
             </div>
-            <div>
-              <label for="Password">Password</label>
-              <div class="input-group mb-3">
+            <div class="mb-3">
+              <label for="password">Password</label>
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
 
                 <input
+                  id="password"
                   [type]="showPassword ? 'text' : 'password'"
                   class="form-control form-control-lg"
                   placeholder="Password"
@@ -42,6 +49,11 @@
                   (click)="showPassword = !showPassword"
                 ></i>
               </div>
+              <error
+                *ngIf="isSubmited"
+                [control]="loginForm.controls['password']"
+                [fieldName]="'password'"
+              ></error>
             </div>
 
             <div class="my-4 text-center">

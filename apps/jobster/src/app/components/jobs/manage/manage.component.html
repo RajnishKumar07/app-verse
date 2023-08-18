@@ -3,25 +3,41 @@
     <div class="modal-header">
       <h5 class="modal-title">{{ entityId ? 'Edit Job' : 'Create Job' }}</h5>
     </div>
-    <div class="modal-body">
-      <form [formGroup]="jobForm">
+    <form [formGroup]="jobForm" (ngSubmit)="submit()">
+      <div class="modal-body">
         <div class="my-2">
-          <label for="company">Company Name</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            placeholder="Company Name"
-            formControlName="company"
-          />
+          <div>
+            <label for="company">Company Name</label>
+            <input
+              id="company"
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Company Name"
+              formControlName="company"
+            />
+          </div>
+          <error
+            *ngIf="isSubmited"
+            [control]="jobForm.controls['company']"
+            [fieldName]="'company'"
+          ></error>
         </div>
         <div class="my-2">
-          <label for="position">Position</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            placeholder="Position"
-            formControlName="position"
-          />
+          <div>
+            <label for="position">Position</label>
+            <input
+              id="position"
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Position"
+              formControlName="position"
+            />
+          </div>
+          <error
+            *ngIf="isSubmited"
+            [control]="jobForm.controls['position']"
+            [fieldName]="'position'"
+          ></error>
         </div>
 
         <div>
@@ -41,15 +57,15 @@
             </label>
           </div>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="close()">
-        Close
-      </button>
-      <button type="button" class="btn btn-primary" (click)="submit()">
-        {{ entityId ? 'Update' : 'Submit' }}
-      </button>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">
+          {{ entityId ? 'Update' : 'Submit' }}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

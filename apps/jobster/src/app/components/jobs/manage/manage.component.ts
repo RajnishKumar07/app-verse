@@ -11,6 +11,7 @@ import {
 import { HttpClient, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CoreService } from "../../../core/services/core.service";
+import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 
 const enum STATUS {
   pending = "pending",
@@ -21,14 +22,14 @@ const enum STATUS {
 @Component({
   selector: "app-verse-manage",
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ErrorComponent],
   templateUrl: "./manage.component.html",
   styleUrls: ["./manage.component.scss"],
 })
 export class ManageComponent implements OnInit {
   entityId!: string;
   jobForm!: FormGroup;
-
+  isSubmited = false;
   allStatus = [
     {
       label: "Pending",
@@ -70,28 +71,29 @@ export class ManageComponent implements OnInit {
    * To submit job
    */
   submit(): void {
-    const data = this.jobForm.value;
-    let url = "/jobs";
-    let methods = "post";
-    let httpReq: Observable<any>;
-    httpReq = this.http.post(url, data);
-    if (this.entityId) {
-      url = `${url}/${this.entityId}`;
-      methods = "patch";
-      httpReq = this.http.patch(url, data);
-    }
-
-    httpReq.subscribe((res) => {
-      if (res || res.job) {
-        const msg = this.entityId
-          ? "Job created successfully."
-          : "Job updated Successfully";
-        this.coreService.showToast("success", msg);
-        this.dialogRef.close(res);
+    this.isSubmited = true;
+    if (this.jobForm.valid) {
+      const data = this.jobForm.value;
+      let url = "/jobs";
+      let methods = "post";
+      let httpReq: Observable<any>;
+      httpReq = this.http.post(url, data);
+      if (this.entityId) {
+        url = `${url}/${this.entityId}`;
+        methods = "patch";
+        httpReq = this.http.patch(url, data);
       }
 
-      console.log("form-------->", res);
-    });
+      httpReq.subscribe((res) => {
+        if (res || res.job) {
+          const msg = this.entityId
+            ? "Job created successfully."
+            : "Job updated Successfully";
+          this.coreService.showToast("success", msg);
+          this.dialogRef.close(res);
+        }
+      });
+    }
   }
 
   private initializeForm(): void {

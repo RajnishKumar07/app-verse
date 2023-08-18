@@ -11,17 +11,24 @@ import { HttpClient } from "@angular/common/http";
 import { TokenService } from "@app-verse/shared";
 import { CoreService } from "apps/jobster/src/app/core/services/core.service";
 import { RouterModule } from "@angular/router";
+import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 
 @Component({
   selector: "app-verse-register",
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    ErrorComponent,
+  ],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
 export default class RegisterComponent {
   registerForm!: FormGroup;
-
+  isSubmited = false;
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
@@ -32,28 +39,31 @@ export default class RegisterComponent {
   }
 
   RegisterFn() {
-    console.log("login--------->", this.registerForm);
-    const { email, password, name } = this.registerForm.value;
-    this.httpClient
-      .post<{ token: string; user: { name: string } }>("/auth/register", {
-        name,
-        email,
-        password,
-      })
-      .subscribe({
-        next: (res: { token: string; user: { name: string } }) => {
-          console.log("res------->", res);
-
-          if (res.token) {
-            this.coreService.navigateTo(["./login"]);
-            this.coreService.showToast("success", "Registered successfully!!");
-          }
-        },
-        error: (err) => {
-          console.log("err------->", err);
-          this.coreService.showToast("error", err?.error?.msg);
-        },
-      });
+    this.isSubmited = true;
+    if (this.registerForm.valid) {
+      const { email, password, name } = this.registerForm.value;
+      this.httpClient
+        .post<{ token: string; user: { name: string } }>("/auth/register", {
+          name,
+          email,
+          password,
+        })
+        .subscribe({
+          next: (res: { token: string; user: { name: string } }) => {
+            if (res.token) {
+              this.coreService.navigateTo(["./login"]);
+              this.coreService.showToast(
+                "success",
+                "Registered successfully!!"
+              );
+            }
+          },
+          error: (err) => {
+            console.log("err------->", err);
+            this.coreService.showToast("error", err?.error?.msg);
+          },
+        });
+    }
   }
 
   private initializeRegisterForm() {

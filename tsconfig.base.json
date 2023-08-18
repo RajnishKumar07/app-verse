@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@app-verse/common-interceptor": ["libs/common-interceptor/src/index.ts"],
-      "@app-verse/shared": ["libs/shared/src/index.ts"]
+      "@app-verse/shared": ["libs/shared/src/index.ts"],
+      "@app-verse/shared/src/lib/error": [
+        "libs/shared/src/lib/error/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
