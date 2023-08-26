@@ -9,7 +9,7 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 || error.status === 403) {
-        coreService.showToast("error", "Unauthorized. Please log in.");
+        coreService.showToast("error", error?.error?.msg);
         coreService.navigateTo(["/login"]);
       } else if (error.status === 404) {
         coreService.showToast("error", "Resource not found.");

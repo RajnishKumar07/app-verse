@@ -24,7 +24,8 @@ export class CoreService {
   }
 
   logOut() {
-    this.tokenService.removeToken();
+    console.log('logout tokenService',this.tokenService)
+    this.tokenService?.removeToken();
     this.user.set({ name: "" });
     this.navigateTo(["/login"]);
   }
