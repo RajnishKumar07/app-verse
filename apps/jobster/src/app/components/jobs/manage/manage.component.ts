@@ -10,8 +10,8 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CoreService } from "../../../core/services/core.service";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
+import { CoreService } from "@app-verse/shared";
 
 const enum STATUS {
   pending = "pending",

@@ -1,9 +1,8 @@
 import { Component, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { CoreService } from "../../../core/services/core.service";
 import { Dialog } from "@angular/cdk/dialog";
-import { ConfirmComponent } from "@app-verse/shared";
+import { ConfirmComponent, CoreService } from "@app-verse/shared";
 
 @Component({
   selector: "app-verse-header",

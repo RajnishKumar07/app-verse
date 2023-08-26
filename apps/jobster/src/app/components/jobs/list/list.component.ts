@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { DialogModule, Dialog } from "@angular/cdk/dialog";
 import { ManageComponent } from "../manage/manage.component";
-import { CoreService } from "../../../core/services/core.service";
-import { ConfirmComponent, LoaderService } from "@app-verse/shared";
+import { ConfirmComponent, CoreService, LoaderService } from "@app-verse/shared";
 @Component({
   selector: "app-verse-list",
   standalone: true,

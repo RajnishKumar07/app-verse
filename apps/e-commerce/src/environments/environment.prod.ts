@@ -1,5 +1,5 @@
 // environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: "https://jobapiapp.onrender.com/api/v1",
+  apiUrl: "https://e-commerce-api-yyqb.onrender.com",
 };

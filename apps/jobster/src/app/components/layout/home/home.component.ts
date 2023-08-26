@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-// import { HeaderComponent } from "../header/header.component";
 import { RouterModule } from "@angular/router";
-import { HeaderComponent } from "@app-verse/shared";
-import { CoreService } from "../../../core/services/core.service";
+import { CoreService, HeaderComponent } from "@app-verse/shared";
 
 @Component({
   selector: "app-verse-home",

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { inject } from "@angular/core";
-import { CoreService } from "../services/core.service";
+import { CoreService } from "@app-verse/shared";
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   const coreService: CoreService = inject(CoreService);
