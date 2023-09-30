@@ -11,7 +11,8 @@ import {
 import { HttpClient, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
-import { CoreService } from "@app-verse/shared";
+import { CoreService } from "../../../core/services";
+
 
 const enum STATUS {
   pending = "pending",

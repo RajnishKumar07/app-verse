@@ -1,14 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { LoaderComponent, LoaderService } from '@app-verse/shared';
+
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'e-com-root',
+  imports: [ CommonModule,RouterModule,LoaderComponent],
+  selector: 'ecom-root', 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'e-commerce';
+
+  constructor(    public loaderService: LoaderService,){}
 }

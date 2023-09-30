@@ -3,7 +3,8 @@ import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { DialogModule, Dialog } from "@angular/cdk/dialog";
 import { ManageComponent } from "../manage/manage.component";
-import { ConfirmComponent, CoreService, LoaderService } from "@app-verse/shared";
+import { ConfirmComponent, LoaderService } from "@app-verse/shared";
+import { CoreService } from "../../../core/services";
 @Component({
   selector: "app-verse-list",
   standalone: true,

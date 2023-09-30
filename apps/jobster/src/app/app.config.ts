@@ -9,8 +9,8 @@ import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { provideToastr } from "ngx-toastr";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { DialogModule } from "@angular/cdk/dialog";
-import {  authInterceptor, errorHandlerInterceptor, loaderInterceptor } from "@app-verse/shared";
 import { apiBaseUrlInterceptor } from "./core/interceptors/api-base-url.interceptor";
+import { authInterceptor, errorHandlerInterceptor, loaderInterceptor } from "./core/interceptors";
 
 export const appConfig: ApplicationConfig = {
   providers: [

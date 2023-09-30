@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { CanActivateFn } from "@angular/router";
-import { CoreService } from "@app-verse/shared";
+import { CoreService } from "../services";
 
 export const loginGuard: CanActivateFn = (route, state) => {
   const coreService = inject(CoreService);

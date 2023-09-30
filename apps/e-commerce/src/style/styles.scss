@@ -32,8 +32,18 @@
 --#{$prefix}backdrop-opacity: #{$modal-backdrop-opacity};
 }
 
-.home{
+.layout{
     margin-top: 5.25rem;
+}
+
+.login-sidebar{
+    background-image: url("/assets/images/login_img.png");
+    background-repeat: no-repeat;
+    background-position: center 80%;
+    min-height: 27rem;
+    @media screen and (max-width: 992px)  {
+        min-height: 18rem;
+    }
 }
 
 .collapse.navbar-collapse{
@@ -72,4 +82,8 @@
     right: 20px;
     top: 15px;
     z-index: 5;
+}
+
+.forgot-password{
+    height: 11rem;
 }

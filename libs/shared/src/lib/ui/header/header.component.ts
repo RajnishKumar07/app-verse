@@ -12,12 +12,14 @@ import { ConfirmComponent } from "@app-verse/shared";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnDestroy {
-  @Input() welcomeText='Hello'
-  @Input() userName='User'
+  @Input() welcomeText='Hello';
+  @Input() userName='User';
+  @Input() brandText!:string;
   @Input({required:true})menus!:{
     routerLink:string,
-    label:string
+    label:string;
   }[]
+
   @Output() logOut:EventEmitter<boolean>=new EventEmitter()
   collapsed = false;
   dialogRef: any;

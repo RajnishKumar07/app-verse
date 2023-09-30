@@ -1,1 +1,4 @@
-<e-com-nx-welcome></e-com-nx-welcome> <router-outlet></router-outlet>
+{{loaderService.loader()}}
+<app-verse-loader *ngIf="loaderService.loader()"></app-verse-loader>
+<router-outlet></router-outlet>
+ 

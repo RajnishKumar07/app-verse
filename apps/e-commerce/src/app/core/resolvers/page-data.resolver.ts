@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { ResolveFn } from "@angular/router";
-import { CoreService } from "../services";
+
 import { catchError, map, of } from "rxjs";
+import { CoreService } from "../services";
 
 export const pageDataResolver =
   (

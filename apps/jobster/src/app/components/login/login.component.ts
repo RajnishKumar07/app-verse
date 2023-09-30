@@ -8,9 +8,9 @@ import {
 } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { CoreService, TokenService } from "@app-verse/shared";
 import { RouterModule } from "@angular/router";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
+import { CoreService, TokenService } from "../../core/services";
 
 @Component({
   selector: "app-verse-login",

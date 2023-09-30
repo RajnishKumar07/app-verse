@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { CoreService, HeaderComponent } from "@app-verse/shared";
+import {  HeaderComponent } from "@app-verse/shared";
+import { CoreService } from "../../../core/services";
 
 @Component({
   selector: "app-verse-home",
@@ -15,6 +16,7 @@ export default class HomeComponent implements OnInit {
     routerLink:'/jobs',
     label:'All Job'
   }]
+  brandText='Jobster'
   constructor(public coreService:CoreService) {}
   ngOnInit(): void {}
 }
