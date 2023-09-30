@@ -1,4 +1,4 @@
-<app-verse-header></app-verse-header>
+<app-verse-header [userName]="coreService.user().name" (logOut)="coreService.logOut()" [menus]="menus" [brandText]="brandText" ></app-verse-header>
 <div class="home">
   <router-outlet> </router-outlet>
 </div>

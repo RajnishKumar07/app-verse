@@ -1,7 +1,6 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { CoreService } from "../../../core/services/core.service";
 import { Dialog } from "@angular/cdk/dialog";
 import { ConfirmComponent } from "@app-verse/shared";
 
@@ -13,9 +12,18 @@ import { ConfirmComponent } from "@app-verse/shared";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnDestroy {
+  @Input() welcomeText='Hello';
+  @Input() userName='User';
+  @Input() brandText!:string;
+  @Input({required:true})menus!:{
+    routerLink:string,
+    label:string;
+  }[]
+
+  @Output() logOut:EventEmitter<boolean>=new EventEmitter()
   collapsed = false;
   dialogRef: any;
-  constructor(public coreService: CoreService, private dialog: Dialog) {}
+  constructor( private dialog: Dialog) {}
   ngOnDestroy(): void {
     this.dialogRef?.close();
   }
@@ -27,7 +35,7 @@ export class HeaderComponent implements OnDestroy {
     this.collapsed = !this.collapsed;
   }
 
-  logOut() {
+  logOutFn() {
     this.dialogRef = this.dialog.open(ConfirmComponent, {
       data: {
         confirmationTitle: "Confirmation",
@@ -38,7 +46,8 @@ export class HeaderComponent implements OnDestroy {
 
     this.dialogRef.closed.subscribe((result: string) => {
       if (result === "yes") {
-        this.coreService.logOut();
+        this.logOut.emit(true)
+
       }
     });
   }

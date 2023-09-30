@@ -1,8 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component, HostListener, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { LoaderService, TokenService } from "@app-verse/shared";
-import { CoreService } from "./core/services/core.service";
+import {  LoaderService } from "@app-verse/shared";
+import { CoreService, TokenService } from "./core/services";
+
+
 
 @Component({
   standalone: true,

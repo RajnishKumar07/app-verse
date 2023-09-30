@@ -1,0 +1,115 @@
+
+
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-12 col-lg-8">
+
+      <div class="card mb-3 overflow-hidden shadow-sm" >
+        <div class="row g-0">
+          <div class="col-md-4 bg-primary login-sidebar">
+            <div class="card-body">
+              <h4 class="text-white">Looks like you're new here!</h4>
+              <p class="text-white">Sign up with your email number to get started</p>
+              
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body h-100">
+              <form [formGroup]="registerForm" (ngSubmit)="RegisterFn()" class="h-100">
+                <div class="d-flex flex-column justify-content-between h-100">
+                  <div>
+                    <div class="mb-3">
+                      <label for="name">Name</label>
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa fa-user mx-1" aria-hidden="true"></i>
+                        </span>
+                        <input
+                          type="text"
+                          id="name"
+                          class="form-control form-control-lg"
+                          placeholder="Name"
+                          formControlName="name"
+                        />
+                      </div>
+                      <error
+                        *ngIf="isSubmited"
+                        [control]="registerForm.controls['name']"
+                        [fieldName]="'name'"
+                      ></error>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Password">Email</label>
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                        <input
+                          type="text"
+                          id="email"
+                          class="form-control form-control-lg"
+                          placeholder="Email"
+                          formControlName="email"
+                        />
+                      </div>
+                      <error
+                        *ngIf="isSubmited"
+                        [control]="registerForm.controls['email']"
+                        [fieldName]="'email'"
+                      ></error>
+                    </div>
+                    <div class="mb-3">
+                      <label for="Password">Password</label>
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="fa fa-lock mx-1" aria-hidden="true"></i>
+                        </span>
+                        <input
+                          type="text"
+                          [type]="showPassword ? 'text' : 'password'"
+                          class="form-control form-control-lg rounded-end"
+                          placeholder="Password"
+                          formControlName="password"
+                        />
+                        <i
+                    class="password-icon fa"
+                    [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+                    aria-hidden="true"
+                    role="button"
+                    (click)="showPassword = !showPassword"
+                  ></i>
+                      </div>
+                      <error
+                        *ngIf="isSubmited"
+                        [control]="registerForm.controls['password']"
+                        [fieldName]="'password'"
+                      ></error>
+                    </div>
+        
+                    <div class="my-4 text-center">
+                      <div>
+                        <button class="btn btn-outline-primary w-100" type="submit">
+                          Register
+                        </button>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <a routerLink="/login" class="nav-link text-primary mt-3">
+                     Existing user? Log in</a
+                    >
+                  </div>
+                </div>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div #verifyAccountMsg>
+  Please check your email to verify your account.
+</div>

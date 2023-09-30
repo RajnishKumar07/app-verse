@@ -5,14 +5,12 @@ import {
   withComponentInputBinding,
 } from "@angular/router";
 import { appRoutes } from "./app.routes";
-import { apiBaseUrlInterceptor } from "./core/interceptors/api-base-url.interceptor";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { loaderInterceptor } from "./core/interceptors/loader.interceptor";
 import { provideToastr } from "ngx-toastr";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { authInterceptor } from "./core/interceptors/auth.interceptor";
-import { errorHandlerInterceptor } from "./core/interceptors/error-handler.interceptor";
 import { DialogModule } from "@angular/cdk/dialog";
+import { apiBaseUrlInterceptor } from "./core/interceptors/api-base-url.interceptor";
+import { authInterceptor, errorHandlerInterceptor, loaderInterceptor } from "./core/interceptors";
 
 export const appConfig: ApplicationConfig = {
   providers: [

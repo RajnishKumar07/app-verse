@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+/* Import Bootstrap CSS */
+@import "custom-bootstrap";
+@import "~font-awesome/css/font-awesome.min.css";
+@import 'ngx-toastr/toastr';
+@import '@angular/cdk/overlay-prebuilt.css';
+
+:root {
+--#{$prefix}modal-zindex: #{$zindex-modal};
+--#{$prefix}modal-width: #{$modal-md};
+--#{$prefix}modal-padding: #{$modal-inner-padding};
+--#{$prefix}modal-margin: #{$modal-dialog-margin};
+--#{$prefix}modal-color: #{$modal-content-color};
+--#{$prefix}modal-bg: #{$modal-content-bg};
+--#{$prefix}modal-border-color: #{$modal-content-border-color};
+--#{$prefix}modal-border-width: #{$modal-content-border-width};
+--#{$prefix}modal-border-radius: #{$modal-content-border-radius};
+--#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-xs};
+--#{$prefix}modal-inner-border-radius: #{$modal-content-inner-border-radius};
+--#{$prefix}modal-header-padding-x: #{$modal-header-padding-x};
+--#{$prefix}modal-header-padding-y: #{$modal-header-padding-y};
+--#{$prefix}modal-header-padding: #{$modal-header-padding}; // Todo in v6: Split this padding into x and y
+--#{$prefix}modal-header-border-color: #{$modal-header-border-color};
+--#{$prefix}modal-header-border-width: #{$modal-header-border-width};
+--#{$prefix}modal-title-line-height: #{$modal-title-line-height};
+--#{$prefix}modal-footer-gap: #{$modal-footer-margin-between};
+--#{$prefix}modal-footer-bg: #{$modal-footer-bg};
+--#{$prefix}modal-footer-border-color: #{$modal-footer-border-color};
+--#{$prefix}modal-footer-border-width: #{$modal-footer-border-width};
+--#{$prefix}backdrop-zindex: #{$zindex-modal-backdrop};
+--#{$prefix}backdrop-bg: #{$modal-backdrop-bg};
+--#{$prefix}backdrop-opacity: #{$modal-backdrop-opacity};
+}
+
+.layout{
+    margin-top: 5.25rem;
+}
+
+.login-sidebar{
+    background-image: url("/assets/images/login_img.png");
+    background-repeat: no-repeat;
+    background-position: center 80%;
+    min-height: 27rem;
+    @media screen and (max-width: 992px)  {
+        min-height: 18rem;
+    }
+}
+
+.collapse.navbar-collapse{
+        @media only screen and (max-width: 992px)  {
+            display: block!important;
+            transition: transform 0.3s ease ;
+            position: fixed;
+            top: 56px;
+            width: 200px;
+            background-color:$primary;
+            color: white;
+            padding: .75rem 1.25rem;
+            float: left;
+            height:calc(100% - 56px);
+            z-index: 999;
+            right: -202px;
+
+        }
+
+}
+.show-navbar{
+    @media only screen and (max-width: 992px)  {
+
+        transform: translateX(-200px);
+   }
+}
+
+.cdk-overlay-pane{
+    @media only screen and (max-width: 992px)  {
+        min-width: auto !important
+   }
+}
+
+.password-icon{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 5;
+}
+
+.forgot-password{
+    height: 11rem;
+}

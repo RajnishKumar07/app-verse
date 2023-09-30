@@ -6,6 +6,7 @@ import {
   UntypedFormControl,
 } from "@angular/forms";
 import { ErrorPipe } from "./error.pipe";
+import { FieldError } from "./form-field-error";
 
 @Component({
   selector: "error",
@@ -29,8 +30,9 @@ import { ErrorPipe } from "./error.pipe";
 })
 export class ErrorComponent {
   @Input() control!: UntypedFormControl | AbstractControl;
-  @Input() errorMessage!: { [key: string]: () => string };
+  @Input() errorMessage!:FieldError;
   @Input() fieldName!: string;
   @Input() errorClass!: string;
   @Input() errorOrder!: string[];
 }
+ 

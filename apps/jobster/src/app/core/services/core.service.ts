@@ -1,7 +1,7 @@
 import { Injectable, signal } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
-import { TokenService } from "@app-verse/shared";
 import { ToastrService } from "ngx-toastr";
+import { TokenService } from "./token.service";
 
 @Injectable({
   providedIn: "root",
@@ -24,7 +24,8 @@ export class CoreService {
   }
 
   logOut() {
-    this.tokenService.removeToken();
+    console.log('logout tokenService',this.tokenService)
+    this.tokenService?.removeToken();
     this.user.set({ name: "" });
     this.navigateTo(["/login"]);
   }
