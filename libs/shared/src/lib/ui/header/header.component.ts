@@ -4,10 +4,12 @@ import { RouterModule } from "@angular/router";
 import { Dialog } from "@angular/cdk/dialog";
 import { ConfirmComponent } from "@app-verse/shared";
 
+import {  OverlayModule } from "@angular/cdk/overlay";
+
 @Component({
   selector: "app-verse-header",
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,OverlayModule],
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
 })
@@ -19,11 +21,20 @@ export class HeaderComponent implements OnDestroy {
     routerLink:string,
     label:string;
   }[]
+  @Input()userMenu!:{
+    label:string;
+    routerLink:string;
+    iconClass:string;
+  }[]
 
   @Output() logOut:EventEmitter<boolean>=new EventEmitter()
   collapsed = false;
+  isUserMenuOpen=false;
   dialogRef: any;
-  constructor( private dialog: Dialog) {}
+
+  constructor( private dialog: Dialog) {
+    
+  }
   ngOnDestroy(): void {
     this.dialogRef?.close();
   }
@@ -35,7 +46,10 @@ export class HeaderComponent implements OnDestroy {
     this.collapsed = !this.collapsed;
   }
 
-  logOutFn() {
+  /**
+   * To logout user
+   */
+  logOutFn():void {
     this.dialogRef = this.dialog.open(ConfirmComponent, {
       data: {
         confirmationTitle: "Confirmation",
@@ -51,4 +65,7 @@ export class HeaderComponent implements OnDestroy {
       }
     });
   }
+
+  
+ 
 }
