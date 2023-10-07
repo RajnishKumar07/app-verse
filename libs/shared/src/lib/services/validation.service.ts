@@ -13,7 +13,7 @@ export class ValidationService {
   static required: ValidatorFn = (
     control: AbstractControl
   ): { [key: string]: any } | null => {
-    const value = control.value.toString().trim();
+    const value = control?.value?.toString().trim();
     if (!value) {
       return { required: true };
     }
