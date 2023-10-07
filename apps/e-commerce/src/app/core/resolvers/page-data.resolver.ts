@@ -13,12 +13,13 @@ export const pageDataResolver =
     const http: HttpClient = inject(HttpClient);
     const coreService=inject(CoreService)
     const routeId = useRouteId ? route.params[idKey] : '';
-    const finalApiUrl = `${apiUrl}/${routeId}`;
-  
+    const finalApiUrl =routeId? `${apiUrl}/${routeId}`:apiUrl;
+    console.log('calling')
 
     return http.get(finalApiUrl).pipe(
       map((res:any)=>{
-        return res?.data
+        console.log('------->',res)
+        return res
       }),
       catchError((error) => {
         // Handle API error here

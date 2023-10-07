@@ -33,7 +33,7 @@
 }
 
 .layout{
-    margin-top: 5.25rem;
+    margin-top: 3.25rem;
 }
 
 .login-sidebar{
@@ -86,4 +86,9 @@
 
 .forgot-password{
     height: 11rem;
+}
+
+.required::after{
+content: '*';
+color: red;
 }

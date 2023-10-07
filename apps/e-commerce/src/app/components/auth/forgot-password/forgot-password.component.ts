@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { CoreService } from '../../../core/services';
 import { timer } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ValidationService } from '@app-verse/shared';
+import { EqualValidatorDirective, ValidationService } from '@app-verse/shared';
 @UntilDestroy()
 @Component({
   selector: 'ecom-forgot-password',
@@ -25,6 +25,7 @@ import { ValidationService } from '@app-verse/shared';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    EqualValidatorDirective
   ],
   templateUrl: './forgot-password.component.html',
 })
@@ -40,7 +41,7 @@ export default class ForgotPasswordComponent implements OnInit {
 
   compareValidationMessage(compareName: string) {
     return {
-      compare: (error:string, field:string) =>
+      validateEqual: (error:string, field:string) =>
         `${field || 'field'} should be same as ${compareName} .`,
     };
   }
@@ -65,14 +66,14 @@ export default class ForgotPasswordComponent implements OnInit {
         'confirmPassword',
         this.fb.control('', [
           ValidationService.required,
-          ValidationService.compare('password'),
+          // ValidationService.compare('password'),
         ])
       );
       this.forgetPassword.patchValue({ email: this.email });
 
-      this.forgetPassword.controls['password'].valueChanges.pipe(untilDestroyed(this)).subscribe((res)=>{
-        this.forgetPassword.controls['confirmPassword'].updateValueAndValidity({emitEvent:true,onlySelf:true})
-      })
+      // this.forgetPassword.controls['password'].valueChanges.pipe(untilDestroyed(this)).subscribe((res)=>{
+      //   this.forgetPassword.controls['confirmPassword'].updateValueAndValidity({emitEvent:true,onlySelf:true})
+      // })
     }
   }
 
