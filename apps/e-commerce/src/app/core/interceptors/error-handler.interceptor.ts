@@ -6,17 +6,25 @@ import { CoreService } from "../services";
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   const coreService: CoreService = inject(CoreService);
+  
+  const showToast = (error: HttpErrorResponse, message: string) => {
+    
+    if (req.headers.get('X-Show-Toast') !== 'false') {
+      coreService.showToast('error', message);
+    }
+  };
+
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 || error.status === 403) {
-        coreService.showToast("error", error?.error?.msg);
+        showToast(error, error?.error?.msg);
         coreService.navigateTo(["/login"]);
       } else if (error.status === 404) {
-        coreService.showToast("error", "Resource not found.");
+        showToast(error, "Resource not found.");
       } else if (error.status === 500) {
-        coreService.showToast("error", "Server error. Please try again later.");
+        showToast(error, "Server error. Please try again later.");
       } else {
-        coreService.showToast("error", "An error occurred.");
+        showToast(error, "An error occurred.");
         coreService.navigateTo(["/login"]);
       }
 

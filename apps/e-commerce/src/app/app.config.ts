@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom,APP_INITIALIZER } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -10,6 +10,8 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { DialogModule } from '@angular/cdk/dialog';
 import { apiBaseUrlInterceptor, errorHandlerInterceptor, loaderInterceptor } from './core/interceptors';
+import { CoreService, initializeApp } from './core/services';
+import { ApiService } from '@app-verse/shared';
 
 
 export const appConfig: ApplicationConfig = {
@@ -26,6 +28,12 @@ export const appConfig: ApplicationConfig = {
         errorHandlerInterceptor,
       ])
     ),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      multi: true,
+      deps: [ApiService,CoreService],
+    },
     provideToastr({
       timeOut: 3000,
       easeTime: 300,

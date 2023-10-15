@@ -11,7 +11,7 @@ import {
 import { RouterModule } from "@angular/router";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 import { Dialog } from "@angular/cdk/dialog";
-import { CoreService, TokenService } from "../../../core/services";
+import { CoreService } from "../../../core/services";
 import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
@@ -34,7 +34,6 @@ export default class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private apiService:ApiService,
-    private tokenService: TokenService,
     private coreService: CoreService,
     private dialog:Dialog,
   ) {

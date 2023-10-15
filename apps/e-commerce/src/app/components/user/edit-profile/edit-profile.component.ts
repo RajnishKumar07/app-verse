@@ -69,7 +69,7 @@ export class EditProfileComponent implements OnInit {
   private patchForm() {
     if (this.userDetail?.user) {
       const { name, email } = this.userDetail.user;
-      console.log('patch------', this.userDetail, name, email);
+     
       this.userForm.patchValue({ name, email });
       this.userForm.controls['email'].disable({ onlySelf: true });
     }

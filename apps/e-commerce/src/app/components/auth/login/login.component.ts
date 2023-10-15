@@ -9,7 +9,7 @@ import {
 
 import { RouterModule } from "@angular/router";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
-import { CoreService, TokenService } from "../../../core/services";
+import { CoreService } from "../../../core/services";
 import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
@@ -31,7 +31,6 @@ export default class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService:ApiService,
-    private tokenService: TokenService,
     private coreService: CoreService
   ) {
     this.initializeLoginForm();
@@ -53,7 +52,7 @@ export default class LoginComponent implements OnInit {
             if (res.user) {
               this.coreService.user.set(res.user);
             }
-              this.tokenService.setToken(res.user);
+             
               this.coreService.navigateTo(["/"]);
               this.coreService.showToast("success", "Login successfully!!");
           },

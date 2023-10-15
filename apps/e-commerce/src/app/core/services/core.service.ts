@@ -1,7 +1,7 @@
 import { Injectable, signal } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { TokenService } from "./token.service";
+
 import { ApiService } from "@app-verse/shared";
 
 
@@ -14,7 +14,6 @@ export class CoreService {
   constructor(
     private toastr: ToastrService,
     private router: Router,
-    private tokenService: TokenService,
     private apiService:ApiService
   ) {}
 
@@ -31,7 +30,7 @@ export class CoreService {
   this.apiService.get('/auth/logout').subscribe({
     next:(res)=>{
 
-      this.tokenService?.removeToken();
+
       this.user.set({ user: '', userId: '', role: '' });
       this.navigateTo(["/login"]);
     }
@@ -39,7 +38,7 @@ export class CoreService {
   }
 
   isLogedIn(): boolean {
-    if (this.tokenService.getToken()?.user) {
+    if (this.user().userId) {
       return true;
     }
     return false;
