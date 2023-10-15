@@ -81,6 +81,7 @@
               <a
                 [routerLink]="item.routerLink"
                 routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
                 type="button"
                 class="list-group-item list-group-item-action d-flex justify-content-between align-items-center gap-5"
                 (click)="isUserMenuOpen=false"
