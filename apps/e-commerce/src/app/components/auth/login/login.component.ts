@@ -6,12 +6,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+
 import { RouterModule } from "@angular/router";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 import { CoreService, TokenService } from "../../../core/services";
-import { ValidationService } from "@app-verse/shared";
+import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
   selector: "ecom-login",
@@ -31,7 +30,7 @@ export default class LoginComponent implements OnInit {
   isSubmited = false;
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClient,
+    private apiService:ApiService,
     private tokenService: TokenService,
     private coreService: CoreService
   ) {
@@ -44,7 +43,7 @@ export default class LoginComponent implements OnInit {
     this.isSubmited = true;
     if (this.loginForm.valid) {
       const { username: email, password } = this.loginForm.value;
-      this.httpClient
+      this.apiService
         .post<{ user: { user: string; userId: string; role: string } }>("/auth/login", {
           email,
           password,

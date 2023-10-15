@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { CoreService } from '../../../core/services';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { IUpdateDetail, IUser, ValidationService } from '@app-verse/shared';
+import { ApiService, IUpdateDetail, IUser, ValidationService } from '@app-verse/shared';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +22,7 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 export class EditProfileComponent implements OnInit {
   @Input() userDetail!: { user: IUser };
   constructor(
-    private http: HttpClient,
+    private apiService:ApiService,
     private coreService: CoreService,
     private fb: FormBuilder
   ) {}
@@ -40,7 +39,7 @@ export class EditProfileComponent implements OnInit {
   editProfile() {
     this.isSubmited = true;
     if (this.userForm.valid) {
-      this.http
+      this.apiService
         .post<{ user: IUpdateDetail }>(
           '/users/updateUser',
           this.userForm.getRawValue()

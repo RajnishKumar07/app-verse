@@ -1,21 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { CoreService } from '../services';
 import { catchError, map, of } from 'rxjs';
+import { ApiService } from '@app-verse/shared';
 
 export const userDataResolver=
 (
 apiUrl : string,  redirectTo: string,showToast=false
 ): ResolveFn<any> =>
 (route, state) => {
-  const http: HttpClient = inject(HttpClient);
+  const apiSerivce:ApiService = inject(ApiService);
   const coreService=inject(CoreService)
   const userId = coreService.user().userId;
   const finalApiUrl = `${apiUrl}/${userId}`;
 
 
-  return http.get(finalApiUrl).pipe(
+  return apiSerivce.get(finalApiUrl).pipe(
     map((res:any)=>{
       
       return res

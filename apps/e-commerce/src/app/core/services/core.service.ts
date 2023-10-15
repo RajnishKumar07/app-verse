@@ -2,7 +2,8 @@ import { Injectable, signal } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { TokenService } from "./token.service";
-import { HttpClient } from "@angular/common/http";
+import { ApiService } from "@app-verse/shared";
+
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,7 @@ export class CoreService {
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService,
-    private http:HttpClient
+    private apiService:ApiService
   ) {}
 
   showToast(type: "success" | "error" | "info" | "warning", msg: string) {
@@ -27,7 +28,7 @@ export class CoreService {
 
   logOut() {
 
-  this.http.get('/auth/logout').subscribe({
+  this.apiService.get('/auth/logout').subscribe({
     next:(res)=>{
 
       this.tokenService?.removeToken();

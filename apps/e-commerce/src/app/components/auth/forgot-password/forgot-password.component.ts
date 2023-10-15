@@ -9,12 +9,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
 import { RouterModule } from '@angular/router';
 import { CoreService } from '../../../core/services';
 import { timer } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { EqualValidatorDirective, ValidationService } from '@app-verse/shared';
+import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
 @UntilDestroy()
 @Component({
   selector: 'ecom-forgot-password',
@@ -46,7 +46,8 @@ export default class ForgotPasswordComponent implements OnInit {
     };
   }
   constructor(
-    private httpClient: HttpClient,
+ 
+    private apiService:ApiService,
     private coreService: CoreService,
     private fb: FormBuilder
   ) {}
@@ -92,7 +93,7 @@ export default class ForgotPasswordComponent implements OnInit {
         api = '/auth/reset-password';
         data['token'] = this.token;
       }
-      this.httpClient.post<{ msg: string }>(api, data).subscribe({
+      this.apiService.post<{ msg: string }>(api, data).subscribe({
         next: (res: { msg: string }) => {
           this.resetMsg = res?.msg;
           this.coreService.showToast('success', this.resetMsg);

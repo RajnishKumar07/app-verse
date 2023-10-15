@@ -6,8 +6,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { EqualValidatorDirective, ValidationService } from '@app-verse/shared';
+
+import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
 import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 import { CoreService } from '../../../core/services';
 
@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
   isSubmited = false;
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private apiService:ApiService,
     private coreService: CoreService
   ) {}
   compareValidationMessage(compareName: string) {
@@ -50,7 +50,7 @@ export class ChangePasswordComponent implements OnInit {
     if (this.passwordForm.valid) {
       const data = this.passwordForm.value;
       delete data['confirmPassword'];
-      this.http
+      this.apiService
         .post<{ msg: string }>('/users/updateUserPassword', data)
         .subscribe((res: { msg: string }) => {
          
