@@ -1,40 +1,116 @@
-<nav class="navbar navbar-expand-lg bg-primary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">{{brandText}}</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        (click)="toggleNav()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="collapse navbar-collapse"
-        [ngClass]="{ 'show-navbar': collapsed }"
-        id="navbarSupportedContent"
-      >
+<nav class="navbar navbar-expand-lg bg-primary fixed-top text-white">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="#">{{ brandText }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleNav()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ 'show-navbar': collapsed }"
+      id="navbarSupportedContent"
+    >
+      <!-- Only show on collapse -->
+      <div class="d-lg-none">
+        <!-- username -->
+        <div
+          class="d-flex flex-column justify-content-center align-items-center gap-2"
+        >
+          <i class="fa fa-user-circle-o fa-4x"></i>
+          <h5>{{ userName | titlecase }}</h5>
+        </div>
+        <hr class="" />
+        <!-- user menus  -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" *ngFor="let menu of menus">
+          <li class="nav-item" *ngFor="let menu of userMenu">
             <a
               class="nav-link"
               [routerLink]="menu.routerLink"
               [routerLinkActive]="'active'"
-              >{{menu.label}}</a
             >
+              <i class="me-2" [ngClass]="menu.iconClass"></i>
+              {{ menu.label }}
+            </a>
           </li>
         </ul>
-        <div class="d-flex align-items-center justify-content-center gap-2 mx-3">
-          <span> {{welcomeText|titlecase}},{{ userName | titlecase }} </span>
-          <span role="button" (click)="logOutFn()">
-            <i class="fa fa-sign-out fa-2x"></i>
-          </span>
+      </div>
+      <!-- menus -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngFor="let menu of menus">
+          <a
+            class="nav-link"
+            [routerLink]="menu.routerLink"
+            [routerLinkActive]="'active'"
+            >{{ menu.label }}</a
+          >
+        </li>
+      </ul>
+
+      <div
+        class="d-none d-lg-flex align-items-center justify-content-center gap-2 mx-3"
+      >
+        <!-- clickable user icon with user menu in popup -->
+        <div *ngIf="userMenu?.length">
+          <i
+            class="fa fa-user-circle-o fa-2x"
+            role="button"
+            (click)="isUserMenuOpen = !isUserMenuOpen"
+            type="button"
+            cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin"
+          ></i>
+
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="isUserMenuOpen"
+            [cdkConnectedOverlayHasBackdrop]="true"
+            [cdkConnectedOverlayBackdropClass]="'bg-transparent'"
+            [cdkConnectedOverlayOffsetY]="15"
+            (backdropClick)="isUserMenuOpen = false"
+          >
+            <div class="list-group">
+              <a
+                [routerLink]="item.routerLink"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
+                type="button"
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center gap-5"
+                (click)="isUserMenuOpen=false"
+                *ngFor="let item of userMenu"
+              >
+                {{ item.label }}
+                <span [ngClass]="item.iconClass"></span>
+              </a>
+            </div>
+          </ng-template>
         </div>
+
+        <!-- welcome text and user name -->
+        <span> {{ welcomeText | titlecase }},{{ userName | titlecase }} </span>
+        <!-- logout button in lg screen -->
+        <span role="button" (click)="logOutFn()">
+          <i class="fa fa-sign-out fa-2x"></i>
+        </span>
+      </div>
+
+      <!-- logout button in collapse screen -->
+      <div
+        class="d-flex d-lg-none align-items-center gap-2"
+        role="button"
+        (click)="logOutFn()"
+      >
+        <i class="fa fa-sign-out fa-2x"></i>
+        Log Out
       </div>
     </div>
-  </nav>
-  
+  </div>
+</nav>

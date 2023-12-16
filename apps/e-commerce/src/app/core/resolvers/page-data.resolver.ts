@@ -1,24 +1,25 @@
-import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { ResolveFn } from "@angular/router";
 
 import { catchError, map, of } from "rxjs";
 import { CoreService } from "../services";
+import { ApiService } from "@app-verse/shared";
 
 export const pageDataResolver =
   (
  apiUrl : string, useRouteId =true, redirectTo: string,showToast=false,idKey='id'
   ): ResolveFn<any> =>
   (route, state) => {
-    const http: HttpClient = inject(HttpClient);
+    const apiSerivce:ApiService  = inject(ApiService);
     const coreService=inject(CoreService)
     const routeId = useRouteId ? route.params[idKey] : '';
-    const finalApiUrl = `${apiUrl}/${routeId}`;
-  
+    const finalApiUrl =routeId? `${apiUrl}/${routeId}`:apiUrl;
+    console.log('calling')
 
-    return http.get(finalApiUrl).pipe(
+    return apiSerivce.get(finalApiUrl).pipe(
       map((res:any)=>{
-        return res?.data
+        console.log('------->',res)
+        return res
       }),
       catchError((error) => {
         // Handle API error here

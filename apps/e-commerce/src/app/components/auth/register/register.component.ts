@@ -7,12 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+
 import { RouterModule } from "@angular/router";
 import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 import { Dialog } from "@angular/cdk/dialog";
-import { CoreService, TokenService } from "../../../core/services";
-import { ValidationService } from "@app-verse/shared";
+import { CoreService } from "../../../core/services";
+import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
   selector: "ecom-register",
@@ -33,8 +33,7 @@ export default class RegisterComponent {
   showPassword=false
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClient,
-    private tokenService: TokenService,
+    private apiService:ApiService,
     private coreService: CoreService,
     private dialog:Dialog,
   ) {
@@ -45,7 +44,7 @@ export default class RegisterComponent {
     this.isSubmited = true;
     if (this.registerForm.valid) {
       const { email, password, name } = this.registerForm.value;
-      this.httpClient
+      this.apiService
         .post<{ token: string; user: { name: string } }>("/auth/register", {
           name,
           email,

@@ -7,6 +7,7 @@ export const apiBaseUrlInterceptor: HttpInterceptorFn = (req, next) => {
   }
   const apiReq = req.clone({
     url: environment.apiUrl + req.url,
+    withCredentials: true
   });
   return next(apiReq);
 };

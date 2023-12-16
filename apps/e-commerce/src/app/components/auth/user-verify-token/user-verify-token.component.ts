@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { timer } from 'rxjs';
 import { CoreService } from '../../../core/services';
+import { ApiService } from '@app-verse/shared';
 
 @Component({
   selector: 'ecom-user-verify-token',
@@ -15,14 +15,14 @@ export default class UserVerifyTokenComponent {
   @Input() email!: string;
   isVerified = false;
   countdown=5;
-  constructor(private http: HttpClient,private coreService:CoreService) {}
+  constructor(private apiSerivce:ApiService,private coreService:CoreService) {}
   verifyEmail() {
     if (this.email && this.token) {
       const data = {
         verificationToken: this.token,
         email: this.email,
       };
-      this.http.post('/auth/verify-email', data).subscribe({
+     this.apiSerivce.post('/auth/verify-email', data).subscribe({
         next: (res) => {
           const countdownTimer = timer(0, 1000); // Emit a value every second
           this.isVerified=true

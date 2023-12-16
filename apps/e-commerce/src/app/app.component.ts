@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent, LoaderService } from '@app-verse/shared';
+import { CoreService } from './core/services';
 
 
 @Component({
@@ -14,5 +15,7 @@ import { LoaderComponent, LoaderService } from '@app-verse/shared';
 export class AppComponent {
   title = 'e-commerce';
 
-  constructor(    public loaderService: LoaderService,){}
+  constructor(    public loaderService: LoaderService,private coreService:CoreService){
+   
+  }
 }
