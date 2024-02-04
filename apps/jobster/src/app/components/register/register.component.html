@@ -20,66 +20,69 @@
                   class="form-control form-control-lg"
                   placeholder="Name"
                   formControlName="name"
-                />
+                  />
+                </div>
+                @if (isSubmited) {
+                  <error
+                    [control]="registerForm.controls['name']"
+                    [fieldName]="'name'"
+                  ></error>
+                }
               </div>
-              <error
-                *ngIf="isSubmited"
-                [control]="registerForm.controls['name']"
-                [fieldName]="'name'"
-              ></error>
-            </div>
-            <div class="mb-3">
-              <label for="Password">Email</label>
-              <div class="input-group">
-                <span class="input-group-text"  >
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                </span>
-                <input
-                  type="text"
-                  id="email"
-                  class="form-control form-control-lg"
-                  placeholder="Email"
-                  formControlName="email"
-                />
-              </div>
-              <error
-                *ngIf="isSubmited"
-                [control]="registerForm.controls['email']"
-                [fieldName]="'email'"
-              ></error>
-            </div>
-            <div class="mb-3">
-              <label for="Password">Password</label>
-              <div class="input-group">
-                <span class="input-group-text"  >
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-                </span>
-                <input
-                  type="text"
-                  id="password"
-                  class="form-control form-control-lg"
-                  placeholder="Password"
-                  formControlName="password"
-                />
-              </div>
-              <error
-                *ngIf="isSubmited"
-                [control]="registerForm.controls['password']"
-                [fieldName]="'password'"
-              ></error>
-            </div>
+              <div class="mb-3">
+                <label for="Password">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text"  >
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="email"
+                    class="form-control form-control-lg"
+                    placeholder="Email"
+                    formControlName="email"
+                    />
+                  </div>
+                  @if (isSubmited) {
+                    <error
+                      [control]="registerForm.controls['email']"
+                      [fieldName]="'email'"
+                    ></error>
+                  }
+                </div>
+                <div class="mb-3">
+                  <label for="Password">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text"  >
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                    <input
+                      type="text"
+                      id="password"
+                      class="form-control form-control-lg"
+                      placeholder="Password"
+                      formControlName="password"
+                      />
+                    </div>
+                    @if (isSubmited) {
+                      <error
+                        [control]="registerForm.controls['password']"
+                        [fieldName]="'password'"
+                      ></error>
+                    }
+                  </div>
 
-            <div class="my-4 text-center">
-              <button class="btn btn-outline-primary w-100" type="submit">
-                Register
-              </button>
-              <a routerLink="/login" class="nav-link text-primary fs-5 mt-3"
-                >Already have an account?</a
-              >
+                  <div class="my-4 text-center">
+                    <button class="btn btn-outline-primary w-100" type="submit">
+                      Register
+                    </button>
+                    <a routerLink="/login" class="nav-link text-primary fs-5 mt-3"
+                      >Already have an account?</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>

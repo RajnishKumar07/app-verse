@@ -13,13 +13,14 @@ import { FieldError } from "./form-field-error";
   standalone: true,
   imports: [CommonModule, ErrorPipe],
   template: `
-    <div
-      [ngClass]="errorClass || 'error-message'"
-      *ngIf="control && control.errors"
-    >
-      {{ control.errors | error: fieldName:errorMessage:errorOrder }}
-    </div>
-  `,
+    @if (control && control.errors) {
+      <div
+        [ngClass]="errorClass || 'error-message'"
+        >
+        {{ control.errors | error: fieldName:errorMessage:errorOrder }}
+      </div>
+    }
+    `,
   styles: [
     `
       .error-message {

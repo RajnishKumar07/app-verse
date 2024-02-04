@@ -1,7 +1,8 @@
-<div
-  class="position-fixed loader-parent w-100 vh-100 d-flex align-items-center justify-content-center"
-  *ngIf="loaderService.loader()"
->
-  <span class="loader"></span>
-</div>
+@if (loaderService.loader()) {
+  <div
+    class="position-fixed loader-parent w-100 vh-100 d-flex align-items-center justify-content-center"
+    >
+    <span class="loader"></span>
+  </div>
+}
 <router-outlet> </router-outlet>

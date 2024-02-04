@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CoreService } from '../../../core/services';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ApiService, IUpdateDetail, IUser, ValidationService } from '@app-verse/shared';
@@ -16,7 +16,7 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 @Component({
   selector: 'ecom-edit-profile',
   standalone: true,
-  imports: [CommonModule, ErrorComponent, FormsModule, ReactiveFormsModule],
+  imports: [ErrorComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './edit-profile.component.html',
 })
 export class EditProfileComponent implements OnInit {

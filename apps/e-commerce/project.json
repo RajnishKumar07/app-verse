@@ -62,10 +62,10 @@
       },
       "configurations": {
         "production": {
-          "browserTarget": "e-commerce:build:production"
+          "buildTarget": "e-commerce:build:production"
         },
         "development": {
-          "browserTarget": "e-commerce:build:development"
+          "buildTarget": "e-commerce:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -73,31 +73,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "e-commerce:build"
+        "buildTarget": "e-commerce:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "apps/e-commerce/**/*.ts",
-          "apps/e-commerce/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/e-commerce/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/e-commerce/jest.config.ts"
       }
     },
     "serve-static": {

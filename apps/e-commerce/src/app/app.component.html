@@ -1,3 +1,4 @@
-<app-verse-loader *ngIf="loaderService.loader()"></app-verse-loader>
+@if (loaderService.loader()) {
+  <app-verse-loader></app-verse-loader>
+}
 <router-outlet></router-outlet>
- 

@@ -10,17 +10,18 @@
         src="/assets/images/email-verified.png"
         alt="images"
         style="height: 20rem"
-      />
-      <button
-        *ngIf="!isVerified"
-        class="btn btn-outline-primary px-4"
-        type="button"
-        (click)="verifyEmail()"
-      >
-        Verify Email
-      </button>
-    
-        <ng-container *ngIf="isVerified" >
+        />
+        @if (!isVerified) {
+          <button
+            class="btn btn-outline-primary px-4"
+            type="button"
+            (click)="verifyEmail()"
+            >
+            Verify Email
+          </button>
+        }
+
+        @if (isVerified) {
           <div class="d-flex align-items-center justify-content-center gap-2">
             <i
               class="fa fa-check-circle fa-2x text-success"
@@ -28,11 +29,11 @@
             ></i>
             <span> Email Verified </span>
           </div>
-          <p class="mt-2"> 
+          <p class="mt-2">
             Redirecting you to login page in <span class="text-success fw-bold">{{countdown}}</span> sec.
           </p>
-        </ng-container>
-     
+        }
+
+      </div>
     </div>
   </div>
-</div>

@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="card">
@@ -22,50 +22,52 @@
                       class="form-control form-control-lg"
                       placeholder="Name"
                       formControlName="name"
-                    />
+                      />
+                    </div>
+                    @if (isSubmited) {
+                      <error
+                        [control]="userForm.controls['name']"
+                        [fieldName]="'name'"
+                      ></error>
+                    }
                   </div>
-                  <error
-                    *ngIf="isSubmited"
-                    [control]="userForm.controls['name']"
-                    [fieldName]="'name'"
-                  ></error>
-                </div>
-                <div class="mb-3">
-                  <label for="Password">Email</label>
-                  <div class="input-group">
-                    <span
-                      class="input-group-text"
-                      [class.text-muted]="control['email'].disabled"
-                    >
-                      <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </span>
-                    <input
-                      type="text"
-                      id="email"
-                      class="form-control form-control-lg"
-                      placeholder="Email"
-                      formControlName="email"
-                    />
-                  </div>
-                  <error
-                    *ngIf="isSubmited"
-                    [control]="userForm.controls['email']"
-                    [fieldName]="'email'"
-                  ></error>
-                </div>
+                  <div class="mb-3">
+                    <label for="Password">Email</label>
+                    <div class="input-group">
+                      <span
+                        class="input-group-text"
+                        [class.text-muted]="control['email'].disabled"
+                        >
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                      </span>
+                      <input
+                        type="text"
+                        id="email"
+                        class="form-control form-control-lg"
+                        placeholder="Email"
+                        formControlName="email"
+                        />
+                      </div>
+                      @if (isSubmited) {
+                        <error
+                          [control]="userForm.controls['email']"
+                          [fieldName]="'email'"
+                        ></error>
+                      }
+                    </div>
 
-                <div class="my-4 row justify-content-center">
-                  <div class="col-4">
-                    <button class="btn btn-outline-primary w-100" type="submit">
-                      Update
-                    </button>
+                    <div class="my-4 row justify-content-center">
+                      <div class="col-4">
+                        <button class="btn btn-outline-primary w-100" type="submit">
+                          Update
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>

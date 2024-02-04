@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-verse-nx-welcome',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -783,9 +783,9 @@ import { CommonModule } from '@angular/common';
               Add UI library
             </summary>
             <pre><span># Generate UI lib</span>
-nx g @nx/angular:lib ui
+nx g &#64;nx/angular:lib ui
 <span># Add a component</span>
-nx g @nx/angular:component button --project ui</pre>
+nx g &#64;nx/angular:component button --project ui</pre>
           </details>
           <details>
             <summary>

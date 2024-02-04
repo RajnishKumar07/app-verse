@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
@@ -15,12 +15,11 @@ import { CoreService } from '../../../core/services';
   selector: 'ecom-change-password',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     EqualValidatorDirective,
-    ErrorComponent,
-  ],
+    ErrorComponent
+],
   templateUrl: './change-password.component.html',
 })
 export class ChangePasswordComponent implements OnInit {

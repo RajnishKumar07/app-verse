@@ -7,19 +7,21 @@
       <p>{{ data.confirmationMessage }}</p>
     </div>
     <div class="modal-footer">
-      <div
-        class="d-flex justify-content-center gap-2 w-100"
-        *ngIf="data && data.confirmButtons && data.confirmButtons.length"
-      >
-        <button
-          type="button"
-          [class]="button.class"
-          *ngFor="let button of data.confirmButtons"
-          (click)="close(button.value)"
-        >
-          {{ button.text }}
-        </button>
-      </div>
+      @if (data && data.confirmButtons && data.confirmButtons.length) {
+        <div
+          class="d-flex justify-content-center gap-2 w-100"
+          >
+          @for (button of data.confirmButtons; track button) {
+            <button
+              type="button"
+              [class]="button.class"
+              (click)="close(button.value)"
+              >
+              {{ button.text }}
+            </button>
+          }
+        </div>
+      }
     </div>
   </div>
 </div>
