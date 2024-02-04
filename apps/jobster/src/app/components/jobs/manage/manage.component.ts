@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { DIALOG_DATA, DialogRef } from "@angular/cdk/dialog";
 import {
   FormBuilder,
@@ -23,7 +23,7 @@ const enum STATUS {
 @Component({
   selector: "app-verse-manage",
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ErrorComponent],
+  imports: [FormsModule, ReactiveFormsModule, ErrorComponent],
   templateUrl: "./manage.component.html",
   styleUrls: ["./manage.component.scss"],
 })

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 import {
   FormBuilder,
@@ -7,26 +7,24 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { CoreService } from '../../../core/services';
 import { timer } from 'rxjs';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy, } from '@ngneat/until-destroy';
 import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
 @UntilDestroy()
 @Component({
   selector: 'ecom-forgot-password',
   standalone: true,
   imports: [
-    CommonModule,
     ErrorComponent,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     EqualValidatorDirective
-  ],
+],
   templateUrl: './forgot-password.component.html',
 })
 export default class ForgotPasswordComponent implements OnInit {

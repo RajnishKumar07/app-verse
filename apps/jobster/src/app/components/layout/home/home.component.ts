@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { RouterModule } from "@angular/router";
 import {  HeaderComponent } from "@app-verse/shared";
 import { CoreService } from "../../../core/services";
@@ -7,7 +7,7 @@ import { CoreService } from "../../../core/services";
 @Component({
   selector: "app-verse-home",
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [RouterModule, HeaderComponent],
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })

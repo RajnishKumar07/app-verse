@@ -19,56 +19,58 @@
                   class="form-control form-control-lg"
                   placeholder="Email"
                   formControlName="username"
-                />
+                  />
+                </div>
+                @if (isSubmited) {
+                  <error
+                    [control]="loginForm.controls['username']"
+                    [fieldName]="'username'"
+                  ></error>
+                }
               </div>
-              <error
-                *ngIf="isSubmited"
-                [control]="loginForm.controls['username']"
-                [fieldName]="'username'"
-              ></error>
-            </div>
-            <div class="mb-3">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <span class="input-group-text"  >
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-                </span>
+              <div class="mb-3">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text"  >
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                  </span>
 
-                <input
-                  id="password"
-                  [type]="showPassword ? 'text' : 'password'"
-                  class="form-control form-control-lg"
-                  placeholder="Password"
-                  formControlName="password"
-                />
-                <i
-                  class="password-icon fa"
-                  [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
-                  aria-hidden="true"
-                  role="button"
-                  (click)="showPassword = !showPassword"
-                ></i>
-              </div>
-              <error
-                *ngIf="isSubmited"
-                [control]="loginForm.controls['password']"
-                [fieldName]="'password'"
-              ></error>
-            </div>
+                  <input
+                    id="password"
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control form-control-lg"
+                    placeholder="Password"
+                    formControlName="password"
+                    />
+                    <i
+                      class="password-icon fa"
+                      [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+                      aria-hidden="true"
+                      role="button"
+                      (click)="showPassword = !showPassword"
+                    ></i>
+                  </div>
+                  @if (isSubmited) {
+                    <error
+                      [control]="loginForm.controls['password']"
+                      [fieldName]="'password'"
+                    ></error>
+                  }
+                </div>
 
-            <div class="my-4 text-center">
-              <div>
-                <button class="btn btn-outline-primary w-100" type="submit">
-                  Login
-                </button>
+                <div class="my-4 text-center">
+                  <div>
+                    <button class="btn btn-outline-primary w-100" type="submit">
+                      Login
+                    </button>
+                  </div>
+                  <a routerLink="/register" class="nav-link text-primary fs-5 mt-3">
+                    Sign up for Jobster</a
+                    >
+                  </div>
+                </div>
               </div>
-              <a routerLink="/register" class="nav-link text-primary fs-5 mt-3">
-                Sign up for Jobster</a
-              >
-            </div>
+            </form>
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </div>

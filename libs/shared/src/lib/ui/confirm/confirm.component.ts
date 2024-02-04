@@ -1,10 +1,10 @@
 import { Component, Inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { DIALOG_DATA, DialogRef } from "@angular/cdk/dialog";
 @Component({
   selector: "app-verse-confirm",
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: "./confirm.component.html",
 })
 export class ConfirmComponent {

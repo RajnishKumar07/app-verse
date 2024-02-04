@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import {
   FormBuilder,
   FormGroup,
@@ -16,12 +16,11 @@ import { CoreService, TokenService } from "../../core/services";
   selector: "app-verse-register",
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    ErrorComponent,
-  ],
+    ErrorComponent
+],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })

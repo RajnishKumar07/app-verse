@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, HostListener, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {  LoaderService } from "@app-verse/shared";
@@ -8,7 +8,7 @@ import { CoreService, TokenService } from "./core/services";
 
 @Component({
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule],
   selector: "app-verse-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],

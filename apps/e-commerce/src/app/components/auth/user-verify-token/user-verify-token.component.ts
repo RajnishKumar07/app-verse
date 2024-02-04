@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { timer } from 'rxjs';
 import { CoreService } from '../../../core/services';
 import { ApiService } from '@app-verse/shared';
@@ -7,7 +7,7 @@ import { ApiService } from '@app-verse/shared';
 @Component({
   selector: 'ecom-user-verify-token',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './user-verify-token.component.html',
 })
 export default class UserVerifyTokenComponent {
