@@ -8,7 +8,7 @@ export const appRoutes: Route[] = [
           import("./layout/layout.routes").then(
             (route) => route.LAYOUT_ROUTES
           ),
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
     },
     {
         path: "register",

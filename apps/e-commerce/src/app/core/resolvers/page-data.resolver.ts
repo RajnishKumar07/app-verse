@@ -18,7 +18,7 @@ export const pageDataResolver =
 
     return apiSerivce.get(finalApiUrl).pipe(
       map((res:any)=>{
-        console.log('------->',res)
+        
         return res
       }),
       catchError((error) => {

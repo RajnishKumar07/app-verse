@@ -1,0 +1,140 @@
+<div class="row justify-content-center w-100 mx-0 mb-4">
+  <div class="col-12 col-md-8 col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h4>{{ id ? 'Edit Product' : 'Add Product' }}</h4>
+      </div>
+      <div class="card-body h-100">
+        <form
+          [formGroup]="productForm"
+          (ngSubmit)="manageProduct()"
+          class="h-100"
+        >
+          <div class="d-flex flex-column justify-content-between h-100">
+            <div>
+              <!-- Name -->
+              <div class="mb-3">
+                <label for="name" class="required">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control form-control-lg"
+                  placeholder="Name"
+                  formControlName="name"
+                />
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['name']"
+                  [fieldName]="'name'"
+                ></error>
+                }
+              </div>
+              <!-- Company -->
+              <div class="mb-3">
+                <label for="company" class="required">Company</label>
+                <input
+                  type="text"
+                  id="company"
+                  class="form-control form-control-lg"
+                  placeholder="Company"
+                  formControlName="company"
+                />
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['company']"
+                  [fieldName]="'company'"
+                ></error>
+                }
+              </div>
+              <!-- Category -->
+              <div class="mb-3">
+                <label for="category" class="required">Category</label>
+                <input
+                  type="text"
+                  id="category"
+                  class="form-control form-control-lg"
+                  placeholder="Category"
+                  formControlName="category"
+                />
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['category']"
+                  [fieldName]="'category'"
+                ></error>
+                }
+              </div>
+              <!-- Price -->
+              <div class="mb-3">
+                <label for="price" class="required">Price</label>
+                <input
+                  type="text"
+                  id="price"
+                  class="form-control form-control-lg"
+                  placeholder="Price"
+                  formControlName="price"
+                />
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['price']"
+                  [fieldName]="'price'"
+                ></error>
+                }
+              </div>
+              <!-- image Upload -->
+             
+              <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <div class="position-relative">
+
+                    <input
+                      class="form-control form-control-lg"
+                      type="file"
+                      id="image"
+                      #productImageUpload
+                      (change)="uploadImage($event)"
+                    />
+                    @if(productForm.controls['image'].value){
+    
+                        <span class="position-absolute bg-white py-2 w-75 d-none d-md-block" style="top:2px;left: 150px;" role="button" (click)="uploadImageClick()">{{productForm.controls['image'].value}}</span>
+                    }
+                </div>
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['image']"
+                  [fieldName]="'Image'"
+                  [errorMessage]="uploadErrorMessage"
+                ></error>
+                }
+              </div>
+              <!-- description -->
+              <div class="mb-3">
+                <label for="description" class="required">Description</label>
+                <textarea
+                  type="text"
+                  id="description"
+                  class="form-control form-control-lg"
+                  placeholder="Description"
+                  formControlName="description"
+                ></textarea>
+                @if (isSubmitted) {
+                <error
+                  [control]="productForm.controls['description']"
+                  [fieldName]="'description'"
+                ></error>
+                }
+              </div>
+
+              <div class="my-4 row justify-content-center">
+                <div class="col-12 col-md-6">
+                  <button class="btn btn-outline-primary w-100" type="submit">
+                   {{productDetail?'Update Product':'Add new Product'}} 
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

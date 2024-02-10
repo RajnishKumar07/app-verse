@@ -34,6 +34,12 @@
 
 .layout{
     margin-top: 3.25rem;
+    height: calc(100vh - 3.25rem);
+    overflow: auto;
+}
+
+.cdk-overlay-container {
+    z-index: 1051;
 }
 
 .login-sidebar{

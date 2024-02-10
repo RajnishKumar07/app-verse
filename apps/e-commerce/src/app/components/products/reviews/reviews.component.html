@@ -1,0 +1,80 @@
+<div
+  class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{ reviewId ? 'Edit Reviews' : 'Write Review' }}
+      </h5>
+      <button type="button" class="btn-close" (click)="close()"></button>
+    </div>
+    <form [formGroup]="reviewForm" (ngSubmit)="manageReview()" class="h-100">
+      <div class="modal-body">
+        <div class="d-flex flex-column justify-content-between">
+          <!-- Title -->
+          <div class="mb-3">
+            <label for="title" class="required">Title</label>
+            <input
+              type="text"
+              id="title"
+              class="form-control form-control-lg"
+              placeholder="Title"
+              formControlName="title"
+            />
+            @if (isSubmitted) {
+            <error
+              [control]="reviewForm.controls['title']"
+              [fieldName]="'title'"
+            ></error>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="rating" class="required">Ratings</label>
+            <div>
+              <span>
+                @for (rating of ratings; track rating) {
+                <i
+                  class="fa fa-star mx-1"
+                  [ngClass]="{ 'text-primary': rating <= ratingsSelected }"
+                  role="button"
+                  (click)="setRatings(rating)"
+                ></i>
+                }
+              </span>
+            </div>
+            @if (isSubmitted) {
+            <error
+              [control]="reviewForm.controls['rating']"
+              [fieldName]="'rating'"
+              [errorMessage]="ratingErrorMessage"
+            ></error>
+            }
+          </div>
+          <!-- Comment -->
+          <div class="mb-3">
+            <label for="comment" class="">Comment</label>
+            <textarea
+              type="text"
+              id="comment"
+              class="form-control"
+              rows="7"
+              placeholder="Comment"
+              formControlName="comment"
+            ></textarea>
+            @if (isSubmitted) {
+            <error
+              [control]="reviewForm.controls['comment']"
+              [fieldName]="'comment'"
+            ></error>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary text-white">
+          <i class="fa fa-paper-plane-o mx-2" aria-hidden="true"></i>Post
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

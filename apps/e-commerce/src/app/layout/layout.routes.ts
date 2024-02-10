@@ -13,6 +13,13 @@ export const LAYOUT_ROUTES: Route[] = [
             (route) => route.USER_ROUTES
           ),
       },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('../components/products/products.routes').then(
+            (route) => route.PRODUCTS_ROUTES
+          ),
+      }
     ]
   },
  
