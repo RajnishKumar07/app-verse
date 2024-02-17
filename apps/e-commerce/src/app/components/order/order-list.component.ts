@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IOrder, IOrderCreateRes, IOrderItem } from '@app-verse/shared';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'ecom-order-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './order-list.component.html',
 })
 export class OrderListComponent implements OnInit {

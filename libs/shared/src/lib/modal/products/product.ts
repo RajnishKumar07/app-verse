@@ -22,10 +22,9 @@ export interface IProduct {
 
 export interface IAddProduct {
   name: string;
-  price: number|null;
+  price: number | null;
   description: string;
   image: string;
-  category: string;
-  company: string;
-
+  category: string | null;
+  company: string | null;
 }

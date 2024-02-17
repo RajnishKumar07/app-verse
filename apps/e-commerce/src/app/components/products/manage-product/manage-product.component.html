@@ -32,13 +32,13 @@
               <!-- Company -->
               <div class="mb-3">
                 <label for="company" class="required">Company</label>
-                <input
-                  type="text"
-                  id="company"
-                  class="form-control form-control-lg"
-                  placeholder="Company"
+                <ng-select
+                  [items]="allCompany"
                   formControlName="company"
-                />
+                  placeholder="Select Company"
+                  [clearable]="false"
+                >
+                </ng-select>
                 @if (isSubmitted) {
                 <error
                   [control]="productForm.controls['company']"
@@ -49,13 +49,13 @@
               <!-- Category -->
               <div class="mb-3">
                 <label for="category" class="required">Category</label>
-                <input
-                  type="text"
-                  id="category"
-                  class="form-control form-control-lg"
-                  placeholder="Category"
+
+                <ng-select
+                  [items]="allCategory"
                   formControlName="category"
-                />
+                  placeholder="Select Category"
+                  [clearable]="false"
+                ></ng-select>
                 @if (isSubmitted) {
                 <error
                   [control]="productForm.controls['category']"
@@ -81,22 +81,36 @@
                 }
               </div>
               <!-- image Upload -->
-             
-              <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <div class="position-relative">
 
-                    <input
-                      class="form-control form-control-lg"
-                      type="file"
-                      id="image"
-                      #productImageUpload
-                      (change)="uploadImage($event)"
-                    />
+              <div class="mb-3">
+                <label for="image" class="form-label required">Image</label>
+                <div class="position-relative">
+                  <input
+                    class="form-control form-control-lg d-none"
+                    type="file"
+                    id="image"
+                    #productImageUpload
+                    (change)="uploadImage($event)"
+                  />
+                  <div
+                    class="product-image-upload"
+                    [ngClass]="{
+                      'no-image-uploaded': !productForm.controls['image'].value
+                    }"
+                    (click)="productImageUpload.click()"
+                  >
                     @if(productForm.controls['image'].value){
-    
-                        <span class="position-absolute bg-white py-2 w-75 d-none d-md-block" style="top:2px;left: 150px;" role="button" (click)="uploadImageClick()">{{productForm.controls['image'].value}}</span>
+
+                    <img
+                      [src]="productForm.controls['image'].value"
+                      class="w-100"
+                      alt="no-image-uploaded"
+                    />
+                    }@else{
+                    <p class="text-muted text-light">No image chosen</p>
+                    <h6 class="text-primary">Click to select Image</h6>
                     }
+                  </div>
                 </div>
                 @if (isSubmitted) {
                 <error
@@ -127,7 +141,7 @@
               <div class="my-4 row justify-content-center">
                 <div class="col-12 col-md-6">
                   <button class="btn btn-outline-primary w-100" type="submit">
-                   {{productDetail?'Update Product':'Add new Product'}} 
+                    {{ productDetail ? 'Update Product' : 'Add new Product' }}
                   </button>
                 </div>
               </div>

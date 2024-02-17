@@ -15,11 +15,12 @@ import {
 } from '@app-verse/shared';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { CoreService } from '../../core/services';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'ecom-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
   styles: [
     `
