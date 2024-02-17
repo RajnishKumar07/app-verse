@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom,APP_INITIALIZER } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  APP_INITIALIZER,
+} from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -7,12 +11,15 @@ import {
 import { appRoutes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
-import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { DialogModule } from '@angular/cdk/dialog';
-import { apiBaseUrlInterceptor, errorHandlerInterceptor, loaderInterceptor } from './core/interceptors';
+import {
+  apiBaseUrlInterceptor,
+  errorHandlerInterceptor,
+  loaderInterceptor,
+} from './core/interceptors';
 import { CoreService, TokenService, initializeApp } from './core/services';
 import { ApiService } from '@app-verse/shared';
-
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,13 +39,13 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       multi: true,
-      deps: [ApiService,CoreService,TokenService],
+      deps: [ApiService, CoreService, TokenService],
     },
     provideToastr({
       timeOut: 3000,
       easeTime: 300,
-      easing: "easing",
-      positionClass: "toast-top-right",
+      easing: 'easing',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
     provideAnimations(),

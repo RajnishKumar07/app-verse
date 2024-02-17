@@ -16,7 +16,15 @@ export class CoreService {
     private router: Router,
     private apiService: ApiService,
     private tokenService: TokenService
-  ) {}
+  ) {
+    effect(() => {
+      if (this.user().userId) {
+        this.tokenService.setToken(this.user());
+      } else {
+        this.tokenService.removeToken();
+      }
+    });
+  }
 
   showToast(type: 'success' | 'error' | 'info' | 'warning', msg: string) {
     this.toastr[type](msg);

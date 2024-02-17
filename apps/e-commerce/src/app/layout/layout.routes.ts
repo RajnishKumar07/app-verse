@@ -63,6 +63,19 @@ export const LAYOUT_ROUTES: Route[] = [
             (route) => route.PRODUCTS_ROUTES
           ),
       },
+      {
+        path: 'cart',
+        loadComponent: () => import('../components/cart/cart.component'),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'orders',
+        loadChildren: () =>
+          import('../components/order/order.routes').then(
+            (route) => route.ORDER_ROUTES
+          ),
+        canActivate: [authGuard],
+      },
     ],
   },
 ];

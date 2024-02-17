@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    @for (item of allOrders; track item._id) {
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div
+            class="d-flex flex-column flex-lg-row gap-3 gap-lg-0 justify-content-end justify-content-lg-between align-items-lg-center"
+          >
+            <img
+              [src]="item.image"
+              class="product-image rounded-2"
+              alt="product-img"
+            />
+
+            <h5 class="card-title text-truncate" style="width: 40%">
+              {{ item.name }}
+            </h5>
+            <span> Price :{{ item.price | currency : 'INR' }} </span>
+            <div class="d-flex align-items-center gap-3">
+              Quantity :
+
+              <span class="fw-bold">
+                {{ item.amount }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

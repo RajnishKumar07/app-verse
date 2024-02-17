@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ApiService,
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CoreService } from '../../../core/services';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'ecom-product-detail',
@@ -30,7 +31,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     public coreService: CoreService,
     private dialog: Dialog,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cartService: CartService
   ) {}
 
   ngOnDestroy(): void {
@@ -44,7 +46,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  writeReviews(reviewId?: string) {
+  writeReviews(reviewId?: string): void {
     if (!this.coreService.isLogedIn()) {
       this.dialogRef = this.dialog.open(ConfirmComponent, {
         data: {
@@ -79,7 +81,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteReview(id: string) {
+  deleteReview(id: string): void {
     this.dialogRef = this.dialog.open(ConfirmComponent, {
       data: {
         confirmationTitle: 'Confirmation',
@@ -103,6 +105,65 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  addToCart(): void {
+    if (!this.coreService.isLogedIn()) {
+      this.dialogRef = this.dialog.open(ConfirmComponent, {
+        data: {
+          confirmationTitle: 'Confirmation',
+          confirmationMessage:
+            'Please log in to add item in a cart. Would you like to be redirected to the login page?',
+        },
+      });
+
+      this.dialogRef.closed.subscribe((res) => {
+        if (res === 'yes') {
+          this.coreService.navigateTo(['/login']);
+        }
+      });
+    } else {
+      const { id: product, name, image, price } = this.productDetail;
+      this.cartService.addItemToCart({
+        product,
+        name,
+        amount: 1,
+        price,
+        image,
+      });
+
+      this.coreService.navigateTo(['/cart']);
+    }
+  }
+
+  buyNow() {
+    this.cartService.resetCart();
+    if (!this.coreService.isLogedIn()) {
+      this.dialogRef = this.dialog.open(ConfirmComponent, {
+        data: {
+          confirmationTitle: 'Confirmation',
+          confirmationMessage:
+            'Please log in to buy item. Would you like to be redirected to the login page?',
+        },
+      });
+
+      this.dialogRef.closed.subscribe((res) => {
+        if (res === 'yes') {
+          this.coreService.navigateTo(['/login']);
+        }
+      });
+    } else {
+      const { id: product, name, image, price } = this.productDetail;
+      this.cartService.addItemToCart({
+        product,
+        name,
+        amount: 1,
+        price,
+        image,
+      });
+
+      this.coreService.navigateTo(['/cart']);
+    }
   }
 
   private openReviewModal(data: any): void {

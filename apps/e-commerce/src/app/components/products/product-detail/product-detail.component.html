@@ -8,10 +8,16 @@
           alt="product image"
         />
         <div class="d-flex gap-2 flex-column flex-md-row my-4">
-          <button class="btn btn-warning w-100 py-2 py-md-4 text-white fw-bold">
+          <button
+            class="btn btn-warning w-100 py-2 py-md-4 text-white fw-bold"
+            (click)="addToCart()"
+          >
             <i class="fa fa-cart-plus mx-2" aria-hidden="true"></i>ADD TO CART
           </button>
-          <button class="btn btn-success w-100 py-2 py-md-4 text-white fw-bold">
+          <button
+            class="btn btn-success w-100 py-2 py-md-4 text-white fw-bold"
+            (click)="buyNow()"
+          >
             <i class="fa fa-bolt mx-2" aria-hidden="true"></i>BUY NOW
           </button>
         </div>
@@ -37,7 +43,7 @@
       </h1>
 
       @if(!productDetail.numOfReviews){
-      <a [routerLink]="['/routePath']" class="text-decoration-none"
+      <a (click)="writeReviews()" class="text-decoration-none"
         >Be the first to review this product</a
       >
       }
@@ -52,12 +58,17 @@
         @if(coreService.user().role!=='admin'&& !isAlreadyReviewed){
 
         <h6 class="mb-0 mt-3">Review this product</h6>
-        <p class="mb-0">Share your thoughts with other customers</p>
-        <button class="btn btn-primary mb-4" (click)="writeReviews()">
+        <p>Share your thoughts with other customers</p>
+        <button
+          class="btn btn-primary mb-4"
+          id="#addReview"
+          (click)="writeReviews()"
+        >
           Write a product review
         </button>
+        @if (productDetail.reviews.length) {
         <hr />
-        } @for (review of productDetail.reviews; track review._id) {
+        } } @for (review of productDetail.reviews; track review._id) {
         <div class="my-3">
           <div class="d-flex gap-2 align-items-center">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>

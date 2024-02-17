@@ -12,14 +12,14 @@
 
   <div class="col" role="button" (click)="productDetail(product.id)">
     <div class="card h-100">
-      <div class="d-flex h-100">
+      <div class="" style="height: 14rem">
         <img
           [src]="product.image"
           class="img-fluid card-img-top h-100 object-fit-cover"
           alt="Product image"
         />
       </div>
-      <div class="card-body" >
+      <div class="card-body">
         <h5 class="card-title mb-0 text-muted">{{ product.company }}</h5>
         <p class="card-text">{{ product.name }}</p>
         <div class="d-flex align-items-end gap-2">
@@ -44,11 +44,10 @@
         @if(coreService.user().role === 'admin'){
 
         <a
-        [routerLink]="['/products',product.id]"
-        (click)="$event.stopPropagation()"
+          [routerLink]="['/products', product.id]"
+          (click)="$event.stopPropagation()"
           class="btn btn-primary text-white position-absolute p-3 d-flex border rounded-circle"
           style="right: 4px; bottom: 4px"
-
         >
           <i class="fa fa-edit"></i>
         </a>
@@ -59,3 +58,13 @@
 
   }
 </div>
+<ngb-pagination
+  class="d-flex justify-content-center my-5"
+  [collectionSize]="pagination.totalProducts"
+  [(page)]="pagination.currentPage"
+  [pageSize]="pagination.limit"
+  [maxSize]="5"
+  [rotate]="true"
+  [boundaryLinks]="true"
+  (pageChange)="onPageChange($event)"
+/>
