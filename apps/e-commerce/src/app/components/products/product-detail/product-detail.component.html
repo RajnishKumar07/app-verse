@@ -1,0 +1,122 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div>
+        <img
+          [src]="productDetail.image"
+          class="w-100 rounded-2"
+          alt="product image"
+        />
+        <div class="d-flex gap-2 flex-column flex-md-row my-4">
+          <button
+            class="btn btn-warning w-100 py-2 py-md-4 text-white fw-bold"
+            (click)="addToCart()"
+          >
+            <i class="fa fa-cart-plus mx-2" aria-hidden="true"></i>ADD TO CART
+          </button>
+          <button
+            class="btn btn-success w-100 py-2 py-md-4 text-white fw-bold"
+            (click)="buyNow()"
+          >
+            <i class="fa fa-bolt mx-2" aria-hidden="true"></i>BUY NOW
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <h4 class="text-muted mb-0">
+        {{ productDetail.company }}
+      </h4>
+      <h4>
+        {{ productDetail.name }}
+      </h4>
+      <div class="d-flex gap-1 align-items-center mt-2">
+        @for (rating of ratings; track rating) {
+        <i
+          class="fa fa-star"
+          [ngClass]="{ 'text-primary': rating <= productDetail.averageRating }"
+        ></i>
+        } ({{ productDetail.numOfReviews }}) Ratings & Reviews
+      </div>
+      <h1>
+        {{ productDetail.price | currency : 'INR' }}
+      </h1>
+
+      @if(!productDetail.numOfReviews){
+      <a (click)="writeReviews()" class="text-decoration-none"
+        >Be the first to review this product</a
+      >
+      }
+
+      <div class="my-3">
+        <h5>Description :</h5>
+        {{ productDetail.description }}
+      </div>
+
+      <div class="border p-3 rounded-2">
+        <h5>Ratings & Reviews :</h5>
+        @if(coreService.user().role!=='admin'&& !isAlreadyReviewed){
+
+        <h6 class="mb-0 mt-3">Review this product</h6>
+        <p>Share your thoughts with other customers</p>
+        <button
+          class="btn btn-primary mb-4"
+          id="#addReview"
+          (click)="writeReviews()"
+        >
+          Write a product review
+        </button>
+        @if (productDetail.reviews.length) {
+        <hr />
+        } } @for (review of productDetail.reviews; track review._id) {
+        <div class="my-3">
+          <div class="d-flex gap-2 align-items-center">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+            <span>{{ review.user.name }}</span>
+          </div>
+          <div class="d-flex gap-2 align-items-center mt-2">
+            <span class="d-flex gap-1 align-items-center">
+              @for (rating of ratings; track rating) {
+              <i
+                class="fa fa-star"
+                [ngClass]="{ 'text-primary': rating <= review.rating }"
+              ></i>
+              }
+            </span>
+            <h6 class="mb-0">
+              {{ review.title | titlecase }}
+            </h6>
+          </div>
+          <span class="form-text"
+            >Reviewed on {{ review.createdAt | date : 'd MMMM yyyy' }}</span
+          >
+          <p>
+            {{ review.comment }}
+          </p>
+
+          <div class="d-flex gap-4">
+            @if(coreService.user().userId===review.user._id){
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm btn-rounded"
+              (click)="writeReviews(review._id)"
+            >
+              <i class="fa fa-edit" aria-hidden="true"></i> Edit
+            </button>
+            }
+            @if(coreService.user().userId===review.user._id||coreService.user().role==='admin'){
+            <button
+              type="button"
+              class="btn btn-danger btn-sm btn-rounded"
+              (click)="deleteReview(review._id)"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i> Delete
+            </button>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

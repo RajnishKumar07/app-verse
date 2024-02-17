@@ -23,6 +23,8 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
         showToast(error, "Resource not found.");
       } else if (error.status === 500) {
         showToast(error, "Server error. Please try again later.");
+      }else if (error.status === 400) {
+        showToast(error, error.error.msg||'Bad Request');
       } else {
         showToast(error, "An error occurred.");
         coreService.navigateTo(["/login"]);

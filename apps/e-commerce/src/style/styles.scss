@@ -4,6 +4,7 @@
 @import "~font-awesome/css/font-awesome.min.css";
 @import 'ngx-toastr/toastr';
 @import '@angular/cdk/overlay-prebuilt.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 :root {
 --#{$prefix}modal-zindex: #{$zindex-modal};
@@ -34,6 +35,12 @@
 
 .layout{
     margin-top: 3.25rem;
+    height: calc(100vh - 3.25rem);
+    overflow: auto;
+}
+
+.cdk-overlay-container {
+    z-index: 1051;
 }
 
 .login-sidebar{
@@ -91,4 +98,18 @@
 .required::after{
 content: '*';
 color: red;
+}
+
+.product-image-upload{
+    width: 10rem;
+    border: 1px solid gray;
+    border-radius: 11px;
+    overflow: hidden;
+    cursor: pointer;
+    &.no-image-uploaded{
+        padding: 11px;
+    text-align: center;
+    width: 14rem;
+    background-color: #e4e4e4;
+    }
 }

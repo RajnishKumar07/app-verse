@@ -1,0 +1,70 @@
+<!-- need to remove ! letter  -->
+@if (coreService.user().role==='admin') {
+<div class="d-flex justify-content-end w-100 px-3 my-2">
+  <button class="btn btn-primary text-white" [routerLink]="'add-product'">
+    Add Product
+  </button>
+</div>
+}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-4 mx-3">
+  @for(product of allProducts;track product.id){
+
+  <div class="col" role="button" (click)="productDetail(product.id)">
+    <div class="card h-100">
+      <div class="" style="height: 14rem">
+        <img
+          [src]="product.image"
+          class="img-fluid card-img-top h-100 object-fit-cover"
+          alt="Product image"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title mb-0 text-muted">{{ product.company }}</h5>
+        <p class="card-text">{{ product.name }}</p>
+        <div class="d-flex align-items-end gap-2">
+          <h5 class="mb-0">
+            {{ product.price | currency : 'INR' }}
+          </h5>
+          <del class="mb-0">
+            <h6 class="text-muted mb-0">
+              {{ getExpectedPrice(product.price) | currency : 'INR' }}
+            </h6>
+          </del>
+          <p class="text-success fw-bold mb-0 lh-sm">10% off</p>
+        </div>
+        <div>
+          @for (rating of ratings; track rating) {
+          <i
+            class="fa fa-star"
+            [ngClass]="{ 'text-primary': rating <= product.averageRating }"
+          ></i>
+          } ({{ product.numOfReviews }})
+        </div>
+        @if(coreService.user().role === 'admin'){
+
+        <a
+          [routerLink]="['/products', product.id]"
+          (click)="$event.stopPropagation()"
+          class="btn btn-primary text-white position-absolute p-3 d-flex border rounded-circle"
+          style="right: 4px; bottom: 4px"
+        >
+          <i class="fa fa-edit"></i>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+
+  }
+</div>
+<ngb-pagination
+  class="d-flex justify-content-center my-5"
+  [collectionSize]="pagination.totalProducts"
+  [(page)]="pagination.currentPage"
+  [pageSize]="pagination.limit"
+  [maxSize]="5"
+  [rotate]="true"
+  [boundaryLinks]="true"
+  (pageChange)="onPageChange($event)"
+/>

@@ -12,7 +12,7 @@ $border-radius: .4rem;
 $primary:#00bbff;
 
 //navlink color
-$navbar-light-color:  rgba(255, 255, 255, 0.723);              
+$navbar-light-color:  rgba(255, 255, 255, 0.723);
 $navbar-light-hover-color: rgba(255, 255, 255, 0.886);
 $navbar-light-active-color:white;
 
@@ -41,7 +41,7 @@ $navbar-light-active-color:white;
 @import "bootstrap/scss/card";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
-// @import "bootstrap/scss/pagination";
+@import "bootstrap/scss/pagination";
 @import "bootstrap/scss/badge";
 @import "bootstrap/scss/alert";
 // @import "bootstrap/scss/progress";

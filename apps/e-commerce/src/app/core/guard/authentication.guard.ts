@@ -1,6 +1,6 @@
-import { CanActivateFn } from "@angular/router";
-import { inject } from "@angular/core";
-import { CoreService } from "../services";
+import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { CoreService } from '../services';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const coreService: CoreService = inject(CoreService);
@@ -9,6 +9,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  coreService.navigateTo(["/login"]);
+  coreService.navigateTo(['/login']);
   return false;
 };
