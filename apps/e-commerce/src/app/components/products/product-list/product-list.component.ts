@@ -5,11 +5,11 @@ import { CoreService } from '../../../core/services';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
-
+import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'ecom-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgbPaginationModule],
+  imports: [CommonModule, RouterModule, NgbPaginationModule, NgOptimizedImage],
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent implements OnInit {

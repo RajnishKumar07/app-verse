@@ -12,11 +12,14 @@
 
   <div class="col" role="button" (click)="productDetail(product.id)">
     <div class="card h-100">
-      <div class="" style="height: 14rem">
+      <div class="position-relative" style="height: 14rem">
         <img
-          [src]="product.image"
+          [ngSrc]="product.image"
           class="img-fluid card-img-top h-100 object-fit-cover"
           alt="Product image"
+          placeholder
+          fill
+          loading="lazy"
         />
       </div>
       <div class="card-body">

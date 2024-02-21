@@ -25,8 +25,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       appRoutes,
-      withComponentInputBinding(),
-      withEnabledBlockingInitialNavigation()
+      withComponentInputBinding()
+      // withEnabledBlockingInitialNavigation()
     ),
     provideHttpClient(
       withInterceptors([

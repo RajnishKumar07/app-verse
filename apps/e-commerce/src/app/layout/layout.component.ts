@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '@app-verse/shared';
 import { CoreService } from '../core/services';
 
@@ -11,6 +11,7 @@ import { CoreService } from '../core/services';
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {
+  @ViewChild('layout', { static: true }) layout!: ElementRef;
   brandText = 'E-Commerce';
   menus: { routerLink: string; label: string }[] = [];
   userMenu: {
@@ -18,7 +19,7 @@ export class LayoutComponent implements OnInit {
     routerLink: string;
     iconClass: string;
   }[] = [];
-  constructor(public coreService: CoreService) {}
+  constructor(private router: Router, public coreService: CoreService) {}
 
   ngOnInit(): void {
     this.userMenu = [
@@ -43,5 +44,15 @@ export class LayoutComponent implements OnInit {
         routerLink: '/orders',
       },
     ];
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      console.log('event=========>', evt);
+      if (this.layout) {
+        this.layout.nativeElement.scrollTop = 0;
+      }
+    });
   }
 }

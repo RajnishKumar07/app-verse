@@ -45,7 +45,8 @@ export class CoreService {
   }
 
   isLogedIn(): boolean {
-    if (this.user().userId) {
+    const user = this.tokenService.getToken();
+    if (user && user.userId) {
       return true;
     }
     return false;
