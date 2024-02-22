@@ -4,6 +4,7 @@
 
 - [E-Commerce Frontend Documentation](#e-commerce-frontend-documentation)
   - [Table of Contents](#table-of-contents)
+  - [Live Application](#live-application)
   - [User Credentials](#user-credentials)
     - [Admin](#admin)
     - [User](#user)
@@ -21,6 +22,11 @@
   - [App Structure](#app-structure)
   - [Data Interaction](#data-interaction)
   - [Deployment](#deployment)
+
+## Live Application
+
+The live version of the E-Commerce frontend application is accessible at [https://e-commerce-app-angular.web.app/](https://e-commerce-app-angular.web.app/).
+
 
 ## User Credentials
 
