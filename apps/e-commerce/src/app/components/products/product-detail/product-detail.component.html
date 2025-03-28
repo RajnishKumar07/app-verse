@@ -3,10 +3,13 @@
     <div class="col-12 col-md-4">
       <div>
         <img
-          [src]="productDetail.image"
+          [src]="productDetail()?.image"
           class="w-100 rounded-2"
+          [ngClass]="{ isOutOfStock: isOutOfStock() }"
           alt="product image"
         />
+        @if (!isOutOfStock()) {
+
         <div class="d-flex gap-2 flex-column flex-md-row my-4">
           <button
             class="btn btn-warning w-100 py-2 py-md-4 text-white fw-bold"
@@ -21,28 +24,37 @@
             <i class="fa fa-bolt mx-2" aria-hidden="true"></i>BUY NOW
           </button>
         </div>
+        }
       </div>
     </div>
     <div class="col-12 col-md-8">
       <h4 class="text-muted mb-0">
-        {{ productDetail.company }}
+        {{ productDetail()?.company }}
       </h4>
       <h4>
-        {{ productDetail.name }}
+        {{ productDetail()?.name }}
       </h4>
       <div class="d-flex gap-1 align-items-center mt-2">
         @for (rating of ratings; track rating) {
         <i
           class="fa fa-star"
-          [ngClass]="{ 'text-primary': rating <= productDetail.averageRating }"
+          [ngClass]="{
+            'text-primary': rating <= (productDetail()?.averageRating || 0)
+          }"
         ></i>
-        } ({{ productDetail.numOfReviews }}) Ratings & Reviews
+        } ({{ productDetail()?.numOfReviews }}) Ratings & Reviews
       </div>
       <h1>
-        {{ productDetail.price | currency : 'INR' }}
+        {{ productDetail()?.price | currency : 'INR' }}
       </h1>
+      @if(isOutOfStock()){
 
-      @if(!productDetail.numOfReviews){
+      <div
+        class="bg-danger bg-opacity-10 mb-3 p-2 rounded text-center text-danger"
+      >
+        OUT OF STOCK
+      </div>
+      } @if(!productDetail()?.numOfReviews){
       <a (click)="writeReviews()" class="text-decoration-none"
         >Be the first to review this product</a
       >
@@ -50,7 +62,7 @@
 
       <div class="my-3">
         <h5>Description :</h5>
-        {{ productDetail.description }}
+        {{ productDetail()?.description }}
       </div>
 
       <div class="border p-3 rounded-2">
@@ -66,9 +78,9 @@
         >
           Write a product review
         </button>
-        @if (productDetail.reviews.length) {
+        @if (productDetail()?.reviews?.length) {
         <hr />
-        } } @for (review of productDetail.reviews; track review._id) {
+        } } @for (review of productDetail()?.reviews; track review.id) {
         <div class="my-3">
           <div class="d-flex gap-2 align-items-center">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
@@ -95,20 +107,20 @@
           </p>
 
           <div class="d-flex gap-4">
-            @if(coreService.user().userId===review.user._id){
+            @if(coreService.user().userId===review.user.id){
             <button
               type="button"
               class="btn btn-secondary btn-sm btn-rounded"
-              (click)="writeReviews(review._id)"
+              (click)="writeReviews(review.id)"
             >
               <i class="fa fa-edit" aria-hidden="true"></i> Edit
             </button>
             }
-            @if(coreService.user().userId===review.user._id||coreService.user().role==='admin'){
+            @if(coreService.user().userId===review.user.id||coreService.user().role==='admin'){
             <button
               type="button"
               class="btn btn-danger btn-sm btn-rounded"
-              (click)="deleteReview(review._id)"
+              (click)="deleteReview(review.id)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i> Delete
             </button>

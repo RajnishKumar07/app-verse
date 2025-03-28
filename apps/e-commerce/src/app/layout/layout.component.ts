@@ -6,7 +6,6 @@ import { CoreService } from '../core/services';
 
 @Component({
   selector: 'ecom-layout',
-  standalone: true,
   imports: [RouterModule, HeaderComponent],
   templateUrl: './layout.component.html',
 })
@@ -49,7 +48,6 @@ export class LayoutComponent implements OnInit {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      console.log('event=========>', evt);
       if (this.layout) {
         this.layout.nativeElement.scrollTop = 0;
       }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IUpdateDetail } from '@app-verse/shared';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class TokenService {
   constructor() {}
 
   // Store the token in local storage
-  setToken(token: { user: string; userId: string; role: string }): void {
+  setToken(token: IUpdateDetail): void {
     const data = JSON.stringify(token);
     localStorage.setItem(this.TOKEN_KEY, data);
   }

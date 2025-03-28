@@ -7,11 +7,10 @@ import { ConfirmComponent } from "@app-verse/shared";
 import {  OverlayModule } from "@angular/cdk/overlay";
 
 @Component({
-  selector: "app-verse-header",
-  standalone: true,
-  imports: [CommonModule, RouterModule,OverlayModule],
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"],
+    selector: "app-verse-header",
+    imports: [CommonModule, RouterModule, OverlayModule],
+    templateUrl: "./header.component.html",
+    styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnDestroy {
   @Input() welcomeText='Hello';

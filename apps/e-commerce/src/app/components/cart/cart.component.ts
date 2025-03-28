@@ -11,6 +11,7 @@ import { CartService } from '../../core/services/cart.service';
 import {
   ApiService,
   ConfirmComponent,
+  IApiResponse,
   IOrderCreateRes,
 } from '@app-verse/shared';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
@@ -19,7 +20,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'ecom-cart',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
   styles: [
@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
 })
 export default class CartComponent implements OnInit {
   shippingFee = 0;
-  tax!: Signal<number>;
+  // tax!: Signal<number>;
   subTotal!: Signal<number>;
   totalPrice!: Signal<number>;
   totalItem!: Signal<number>;
@@ -60,19 +60,19 @@ export default class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTax();
+    // this.getTax();
     this.getSubTotal();
     this.getTotal();
     this.getTotalItem();
   }
 
-  decreaseQuantity(product: string, amount: number): void {
+  decreaseQuantity(productId: number, amount: number): void {
     if (amount > 1)
-      this.cartService.updateCartItemQuantity(product, amount - 1);
+      this.cartService.updateCartItemQuantity(productId, amount - 1);
   }
 
-  increaseQuantity(product: string, amount: number): void {
-    this.cartService.updateCartItemQuantity(product, amount + 1);
+  increaseQuantity(productId: number, amount: number): void {
+    this.cartService.updateCartItemQuantity(productId, amount + 1);
   }
 
   placedOrder() {
@@ -85,28 +85,54 @@ export default class CartComponent implements OnInit {
 
     this.dialogRef.closed.subscribe((res) => {
       if (res === 'yes') {
-        let payload = {
-          tax: this.tax(),
+        const payload = {
+          // tax: this.tax(),
           shippingFee: this.shippingFee,
           items: this.cartService.cartItem(),
         };
 
-        this.apiService.post<IOrderCreateRes>('/orders', payload).subscribe({
-          next: (res: IOrderCreateRes) => {
-            const { clientSecret: paymentIntentId } = res;
-            this.apiService
-              .post(`/orders/${res.order._id}`, { paymentIntentId })
-              .subscribe({
-                next: (res) => {
-                  this.cartService.resetCart();
-                  this.coreService.showToast(
-                    'success',
-                    'Order placed successfully'
-                  );
-                },
-              });
-          },
-        });
+        this.apiService
+          .post<IApiResponse<{ url: string }>>(
+            '/stripe/create-checkout-session',
+            {
+              order: payload,
+              successUrl: 'http://localhost:5000/orders',
+              cancelUrl: 'http://localhost:5000/orders',
+            }
+          )
+          .subscribe({
+            next: (res: IApiResponse<{ url: string }>) => {
+              const { url } = res.data;
+              if (url) {
+                window.location.href = res.data?.url;
+              }
+              // this.apiService
+              //   .post<IApiResponse<any>>('/stripe/create-checkout-session', {
+              //     orderId: res.data.order.id,
+              //     successUrl: 'http://localhost:5000/orders',
+              //     cancelUrl: 'http://localhost:5000/orders',
+              //   })
+              //   .subscribe({
+              //     next: (res: IApiResponse<any>) => {
+              //       console.log('res.------------->', res);
+              //       if (res.data?.url) {
+              //         window.location.href = res.data?.url;
+              //       }
+              //     },
+              //   });
+              // this.apiService
+              //   .post(`/orders/${res.data.order.id}`, { paymentIntentId })
+              //   .subscribe({
+              //     next: (res) => {
+              //       this.cartService.resetCart();
+              //       this.coreService.showToast(
+              //         'success',
+              //         'Order placed successfully'
+              //       );
+              //     },
+              //   });
+            },
+          });
       }
     });
   }
@@ -114,18 +140,17 @@ export default class CartComponent implements OnInit {
   private getTotalItem(): void {
     this.totalItem = computed<number>(() => {
       return this.cartService.cartItem().reduce((acc, item) => {
-        console.log('getTotalItme');
         acc = acc + item.amount;
         return acc;
       }, 0);
     });
   }
 
-  private getTax(): void {
-    this.tax = computed<number>(() => {
-      return this.subTotal() * 0.1;
-    });
-  }
+  // private getTax(): void {
+  //   this.tax = computed<number>(() => {
+  //     return parseFloat((this.subTotal() * 0.1).toFixed(2));
+  //   });
+  // }
 
   private getSubTotal(): void {
     this.subTotal = computed(() => {
@@ -140,7 +165,7 @@ export default class CartComponent implements OnInit {
 
   private getTotal(): void {
     this.totalPrice = computed(() => {
-      return this.subTotal() + this.shippingFee + this.tax();
+      return this.subTotal() + this.shippingFee;
     });
   }
 }

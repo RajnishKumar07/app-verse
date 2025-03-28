@@ -13,16 +13,15 @@ import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 import { CoreService, TokenService } from "../../core/services";
 
 @Component({
-  selector: "app-verse-login",
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ErrorComponent,
-  ],
-  templateUrl: "./login.component.html",
+    selector: "app-verse-login",
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ErrorComponent,
+    ],
+    templateUrl: "./login.component.html"
 })
 export default class LoginComponent implements OnInit {
   loginForm!: FormGroup;

@@ -9,10 +9,9 @@ import { ErrorPipe } from "./error.pipe";
 import { FieldError } from "./form-field-error";
 
 @Component({
-  selector: "error",
-  standalone: true,
-  imports: [CommonModule, ErrorPipe],
-  template: `
+    selector: "error",
+    imports: [CommonModule, ErrorPipe],
+    template: `
     @if (control && control.errors) {
       <div
         [ngClass]="errorClass || 'error-message'"
@@ -21,13 +20,13 @@ import { FieldError } from "./form-field-error";
       </div>
     }
     `,
-  styles: [
-    `
+    styles: [
+        `
       .error-message {
         color: #d3002d;
       }
     `,
-  ],
+    ]
 })
 export class ErrorComponent {
   @Input() control!: UntypedFormControl | AbstractControl;

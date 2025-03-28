@@ -7,19 +7,23 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
+import {
+  ApiService,
+  EqualValidatorDirective,
+  IApiResponse,
+  ValidationService,
+} from '@app-verse/shared';
 import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 import { CoreService } from '../../../core/services';
 
 @Component({
   selector: 'ecom-change-password',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
     EqualValidatorDirective,
-    ErrorComponent
-],
+    ErrorComponent,
+  ],
   templateUrl: './change-password.component.html',
 })
 export class ChangePasswordComponent implements OnInit {
@@ -27,7 +31,7 @@ export class ChangePasswordComponent implements OnInit {
   isSubmited = false;
   constructor(
     private fb: FormBuilder,
-    private apiService:ApiService,
+    private apiService: ApiService,
     private coreService: CoreService
   ) {}
   compareValidationMessage(compareName: string) {
@@ -50,11 +54,10 @@ export class ChangePasswordComponent implements OnInit {
       const data = this.passwordForm.value;
       delete data['confirmPassword'];
       this.apiService
-        .post<{ msg: string }>('/users/updateUserPassword', data)
-        .subscribe((res: { msg: string }) => {
-         
-          if (res?.msg) {
-            this.coreService.showToast('success', res.msg);
+        .post<IApiResponse<null>>('/users/updateUserPassword', data)
+        .subscribe((res: IApiResponse<null>) => {
+          if (res?.message) {
+            this.coreService.showToast('success', res.message);
           }
         });
     }

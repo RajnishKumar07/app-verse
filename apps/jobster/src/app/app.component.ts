@@ -7,11 +7,10 @@ import { CoreService, TokenService } from "./core/services";
 
 
 @Component({
-  standalone: true,
-  imports: [RouterModule],
-  selector: "app-verse-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+    imports: [RouterModule],
+    selector: "app-verse-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
   title = "jobster";

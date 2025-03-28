@@ -8,16 +8,16 @@
 }
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-4 mx-3">
-  @for(product of allProducts;track product.id){
-
+  @for(product of allProducts;track product.id){ @let
+  isOutOfStock=isOutOfStockFn(product);
   <div class="col" role="button" (click)="productDetail(product.id)">
     <div class="card h-100">
       <div class="position-relative" style="height: 14rem">
         <img
           [ngSrc]="product.image"
           class="img-fluid card-img-top h-100 object-fit-cover"
+          [ngClass]="{ isOutOfStock: isOutOfStock }"
           alt="Product image"
-          placeholder
           fill
           loading="lazy"
         />
@@ -25,6 +25,14 @@
       <div class="card-body">
         <h5 class="card-title mb-0 text-muted">{{ product.company }}</h5>
         <p class="card-text">{{ product.name }}</p>
+        @if(isOutOfStock){
+
+        <div
+          class="bg-danger bg-opacity-10 mb-3 p-2 rounded text-center text-danger"
+        >
+          OUT OF STOCK
+        </div>
+        }
         <div class="d-flex align-items-end gap-2">
           <h5 class="mb-0">
             {{ product.price | currency : 'INR' }}

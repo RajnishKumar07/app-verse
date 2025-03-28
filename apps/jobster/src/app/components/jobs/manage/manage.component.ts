@@ -21,11 +21,10 @@ const enum STATUS {
 }
 
 @Component({
-  selector: "app-verse-manage",
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ErrorComponent],
-  templateUrl: "./manage.component.html",
-  styleUrls: ["./manage.component.scss"],
+    selector: "app-verse-manage",
+    imports: [FormsModule, ReactiveFormsModule, ErrorComponent],
+    templateUrl: "./manage.component.html",
+    styleUrls: ["./manage.component.scss"]
 })
 export class ManageComponent implements OnInit {
   entityId!: string;

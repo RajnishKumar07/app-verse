@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
-    @if (allOrders.length) { @for (item of allOrders; track item._id) {
+    @for (item of allOrders(); track item.id) {
     <div class="col-12">
       <div class="card mb-3">
-        <div class="card-body">
+        <div class="card-body" style="height: 8rem">
           <div
-            class="d-flex flex-column flex-lg-row gap-3 gap-lg-0 justify-content-end justify-content-lg-between align-items-lg-center"
+            class="h-100 d-flex flex-column flex-lg-row gap-3 gap-lg-0 justify-content-end justify-content-lg-between align-items-lg-center"
           >
             <img
               [src]="item.image"
-              class="product-image rounded-2"
+              class="product-image rounded-2 h-100"
               alt="product-img"
             />
 
@@ -21,14 +21,14 @@
               Quantity :
 
               <span class="fw-bold">
-                {{ item.amount }}
+                {{ item.quantity || 0 }}
               </span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    }}@else {
+    }@empty {
     <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 text-center">
       <div class="card mb-3">
         <div class="card-body text-muted">

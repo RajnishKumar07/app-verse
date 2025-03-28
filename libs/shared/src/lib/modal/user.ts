@@ -1,5 +1,5 @@
 export interface IUser {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -13,5 +13,5 @@ export interface IUser {
 export interface IUpdateDetail {
   role: string;
   user: string;
-  userId: string;
+  userId: number | null;
 }

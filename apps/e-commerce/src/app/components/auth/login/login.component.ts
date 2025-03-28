@@ -1,20 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { RouterModule } from "@angular/router";
-import { ErrorComponent } from "@app-verse/shared/src/lib/error";
-import { CoreService } from "../../../core/services";
-import { ApiService, ValidationService } from "@app-verse/shared";
+import { RouterModule } from '@angular/router';
+import { ErrorComponent } from '@app-verse/shared/src/lib/error';
+import { CoreService } from '../../../core/services';
+import {
+  ApiService,
+  IApiResponse,
+  IUpdateDetail,
+  ValidationService,
+} from '@app-verse/shared';
 
 @Component({
-  selector: "ecom-login",
-  standalone: true,
+  selector: 'ecom-login',
   imports: [
     CommonModule,
     FormsModule,
@@ -22,7 +26,7 @@ import { ApiService, ValidationService } from "@app-verse/shared";
     RouterModule,
     ErrorComponent,
   ],
-  templateUrl: "./login.component.html",
+  templateUrl: './login.component.html',
 })
 export default class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -30,7 +34,7 @@ export default class LoginComponent implements OnInit {
   isSubmited = false;
   constructor(
     private fb: FormBuilder,
-    private apiService:ApiService,
+    private apiService: ApiService,
     private coreService: CoreService
   ) {
     this.initializeLoginForm();
@@ -43,28 +47,35 @@ export default class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { username: email, password } = this.loginForm.value;
       this.apiService
-        .post<{ user: { user: string; userId: string; role: string } }>("/auth/login", {
+        .post<
+          IApiResponse<{
+            user: IUpdateDetail;
+          }>
+        >('/auth/login', {
           email,
           password,
         })
         .subscribe({
-          next: (res: { user: { user: string; userId: string; role: string } }) => {
-            if (res.user) {
-              this.coreService.user.set(res.user);
+          next: (
+            res: IApiResponse<{
+              user: IUpdateDetail;
+            }>
+          ) => {
+            if (res.data.user) {
+              this.coreService.user.set(res.data.user);
             }
-             
-              this.coreService.navigateTo(["/"]);
-              this.coreService.showToast("success", "Login successfully!!");
+
+            this.coreService.navigateTo(['/']);
+            this.coreService.showToast('success', 'Login successfully!!');
           },
-         
         });
     }
   }
 
   private initializeLoginForm() {
     this.loginForm = this.fb.group({
-      username: ["", [ValidationService.required,ValidationService.email]],
-      password: ["", ValidationService.required],
+      username: ['', [ValidationService.required, ValidationService.email]],
+      password: ['', ValidationService.required],
     });
   }
 }

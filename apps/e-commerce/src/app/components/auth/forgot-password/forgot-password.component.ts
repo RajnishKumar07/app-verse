@@ -12,19 +12,23 @@ import {
 import { RouterModule } from '@angular/router';
 import { CoreService } from '../../../core/services';
 import { timer } from 'rxjs';
-import { UntilDestroy, } from '@ngneat/until-destroy';
-import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import {
+  ApiService,
+  EqualValidatorDirective,
+  IApiResponse,
+  ValidationService,
+} from '@app-verse/shared';
 @UntilDestroy()
 @Component({
   selector: 'ecom-forgot-password',
-  standalone: true,
   imports: [
     ErrorComponent,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    EqualValidatorDirective
-],
+    EqualValidatorDirective,
+  ],
   templateUrl: './forgot-password.component.html',
 })
 export default class ForgotPasswordComponent implements OnInit {
@@ -39,13 +43,12 @@ export default class ForgotPasswordComponent implements OnInit {
 
   compareValidationMessage(compareName: string) {
     return {
-      validateEqual: (error:string, field:string) =>
+      validateEqual: (error: string, field: string) =>
         `${field || 'field'} should be same as ${compareName} .`,
     };
   }
   constructor(
- 
-    private apiService:ApiService,
+    private apiService: ApiService,
     private coreService: CoreService,
     private fb: FormBuilder
   ) {}
@@ -54,7 +57,7 @@ export default class ForgotPasswordComponent implements OnInit {
   }
   ngOnInit(): void {
     this.forgetPassword = this.fb.group({
-      email: ['', [ValidationService.required,ValidationService.email]],
+      email: ['', [ValidationService.required, ValidationService.email]],
     });
     if (this.token) {
       this.forgetPassword.addControl(
@@ -91,9 +94,9 @@ export default class ForgotPasswordComponent implements OnInit {
         api = '/auth/reset-password';
         data['token'] = this.token;
       }
-      this.apiService.post<{ msg: string }>(api, data).subscribe({
-        next: (res: { msg: string }) => {
-          this.resetMsg = res?.msg;
+      this.apiService.post<IApiResponse<null>>(api, data).subscribe({
+        next: (res: IApiResponse<null>) => {
+          this.resetMsg = res?.message;
           this.coreService.showToast('success', this.resetMsg);
           if (!this.token) {
             const countdownTimer = timer(15, 1000).subscribe((n) => {

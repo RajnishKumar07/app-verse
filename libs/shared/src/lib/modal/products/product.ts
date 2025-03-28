@@ -1,7 +1,7 @@
 import { IReview } from './review';
 
 export interface IProduct {
-  _id: string;
+  id: number;
   name: string;
   price: number;
   description: string;
@@ -9,15 +9,19 @@ export interface IProduct {
   category: string;
   company: string;
   colors: string[];
-  inventry: number;
+  inventory: number;
+  reservedProductCount: number;
   averageRating: number;
   numOfReviews: number;
-  user: string;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+  };
   createdAt: string;
   updatedAt: string;
-  __v: number;
   reviews: IReview[];
-  id: string;
+  featured: boolean;
 }
 
 export interface IAddProduct {

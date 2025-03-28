@@ -1,9 +1,19 @@
-import { Component, Input, OnDestroy, OnInit, effect } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  computed,
+  effect,
+  input,
+  linkedSignal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ApiService,
   ConfirmComponent,
   IAddReview,
+  IApiResponse,
   IProduct,
 } from '@app-verse/shared';
 import { RouterModule } from '@angular/router';
@@ -15,36 +25,41 @@ import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'ecom-product-detail',
-  standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   @Input() id!: number;
-  @Input() productDetailRes!: { product: IProduct };
+  productDetailRes = input<IProduct | null>(null);
 
-  productDetail!: IProduct;
+  productDetail = linkedSignal<IProduct | null>(() => this.productDetailRes());
   ratings = [1, 2, 3, 4, 5];
   isAlreadyReviewed = false;
-
+  isOutOfStock = computed(
+    () =>
+      (this.productDetail()?.inventory || 0) -
+        (this.productDetail()?.reservedProductCount || 0) <=
+      0
+  );
   dialogRef!: DialogRef<any, any>;
   constructor(
     public coreService: CoreService,
     private dialog: Dialog,
     private apiService: ApiService,
     private cartService: CartService
-  ) {}
+  ) {
+    effect(() => {
+      if (this.productDetail()) {
+        this.sortProduct();
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.dialogRef?.close();
   }
 
-  ngOnInit(): void {
-    if (this.productDetailRes?.product) {
-      this.productDetail = this.productDetailRes.product;
-      this.sortProduct();
-    }
-  }
+  ngOnInit(): void {}
 
   writeReviews(reviewId?: string): void {
     if (!this.coreService.isLogedIn()) {
@@ -68,10 +83,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       };
       if (reviewId) {
         this.apiService
-          .get<{ review: IAddReview }>(`/reviews/${reviewId}`)
+          .get<IApiResponse<IAddReview>>(`/reviews/${reviewId}`)
           .subscribe({
-            next: (res: { review: IAddReview }) => {
-              reviewModalData['reviewDetails'] = res.review;
+            next: (res: IApiResponse<IAddReview>) => {
+              reviewModalData['reviewDetails'] = res.data;
               this.openReviewModal(reviewModalData);
             },
           });
@@ -123,9 +138,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      const { id: product, name, image, price } = this.productDetail;
+      const {
+        id: productId,
+        name,
+        image,
+        price,
+      } = this.productDetail() as IProduct;
       this.cartService.addItemToCart({
-        product,
+        productId,
         name,
         amount: 1,
         price,
@@ -153,9 +173,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      const { id: product, name, image, price } = this.productDetail;
+      const {
+        id: productId,
+        name,
+        image,
+        price,
+      } = this.productDetail() as IProduct;
       this.cartService.addItemToCart({
-        product,
+        productId,
         name,
         amount: 1,
         price,
@@ -164,6 +189,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
       this.coreService.navigateTo(['/cart']);
     }
+  }
+
+  isOutOfStockFn(product: IProduct): boolean {
+    return product.inventory - product.reservedProductCount <= 0;
   }
 
   private openReviewModal(data: any): void {
@@ -181,12 +210,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   private getProductDetail(): void {
     this.apiService
-      .get<{ product: IProduct }>(`/products/${this.id}`)
+      .get<IApiResponse<IProduct>>(`/products/${this.id}`)
       .subscribe({
-        next: (res: { product: IProduct }) => {
-          if (res?.product) {
-            this.productDetail = res.product;
-            this.sortProduct();
+        next: (res: IApiResponse<IProduct>) => {
+          if (res?.data) {
+            this.productDetail.set(res.data);
           }
         },
       });
@@ -194,13 +222,19 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   //To make the review at first of current user
   private sortProduct(): void {
-    this.productDetail.reviews.sort((a, b) => {
-      if (a.user._id === this.coreService.user().userId) {
-        this.isAlreadyReviewed = true;
-        return -1;
-      } else {
-        return 1;
+    this.productDetail.update((product) => {
+      if (product) {
+        this.isAlreadyReviewed = false;
+        product.reviews.sort((a, b) => {
+          if (a.user.id === this.coreService.user().userId) {
+            this.isAlreadyReviewed = true;
+            return -1;
+          } else {
+            return 1;
+          }
+        });
       }
+      return product;
     });
   }
 }

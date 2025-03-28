@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '@app-verse/shared';
+import { IListApiResponse, IProduct } from '@app-verse/shared';
 import { CoreService } from '../../../core/services';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -8,16 +8,12 @@ import { HttpClient } from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'ecom-product-list',
-  standalone: true,
   imports: [CommonModule, RouterModule, NgbPaginationModule, NgOptimizedImage],
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent implements OnInit {
-  @Input() productListRes!: {
-    products: IProduct[];
-    numOfPages: number;
-    totalProducts: number;
-  };
+  @Input() productListRes!: IListApiResponse<IProduct>;
+
   allProducts!: IProduct[];
 
   pagination!: {
@@ -35,20 +31,20 @@ export class ProductListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     if (this.productListRes) {
-      this.allProducts = this.productListRes.products;
+      this.allProducts = this.productListRes.items;
       this.pagination = {
         currentPage: 1,
-        totalProducts: this.productListRes.totalProducts,
-        limit: 10,
+        totalProducts: this.productListRes.pagination.totalItems,
+        limit: this.productListRes.pagination.pageSize,
       };
     }
   }
 
   getExpectedPrice(price: number): number {
-    return price + price * 0.1;
+    return Number(price) + Number(price) * 0.1;
   }
 
-  productDetail(id: string) {
+  productDetail(id: number) {
     this.coreService.navigateTo([`details/${id}`], {
       relativeTo: this.route,
     });
@@ -64,25 +60,22 @@ export class ProductListComponent implements OnInit {
       limit: this.pagination.limit,
     };
     this.http
-      .get<{
-        products: IProduct[];
-        numOfPages: number;
-        totalProducts: number;
-      }>('/products', { params: queryParams })
+      .get<IListApiResponse<IProduct>>('/products', { params: queryParams })
       .subscribe({
-        next: (res: {
-          products: IProduct[];
-          numOfPages: number;
-          totalProducts: number;
-        }) => {
+        next: (res: IListApiResponse<IProduct>) => {
           this.pagination = {
             ...this.pagination,
-            currentPage: res.numOfPages,
-            totalProducts: res.totalProducts,
+            currentPage: res.pagination.currentPage,
+            totalProducts: res.pagination.totalItems,
+            limit: res.pagination.pageSize,
           };
 
-          this.allProducts = res.products;
+          this.allProducts = res.items;
         },
       });
+  }
+
+  isOutOfStockFn(product: IProduct): boolean {
+    return product.inventory - product.reservedProductCount <= 0;
   }
 }

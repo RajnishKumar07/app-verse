@@ -113,3 +113,8 @@ color: red;
     background-color: #e4e4e4;
     }
 }
+
+
+.isOutOfStock{
+    filter:grayscale(1) brightness(0.5)
+}

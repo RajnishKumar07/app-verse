@@ -2,7 +2,7 @@
   <div class="row g-3 mb-5">
     <div class="col-12 col-lg-9">
       @if ( cartService.cartItem().length) { @for (item of
-      cartService.cartItem(); track item.product) {
+      cartService.cartItem(); track item.productId ) {
 
       <div class="card mb-3">
         <div class="card-body">
@@ -24,7 +24,7 @@
               <button
                 type="button"
                 class="btn btn-dark btn-sm"
-                (click)="decreaseQuantity(item.product, item.amount)"
+                (click)="decreaseQuantity(item.productId, item.amount)"
               >
                 <i class="fa fa-minus" aria-hidden="true"></i>
               </button>
@@ -34,14 +34,14 @@
               <button
                 type="button"
                 class="btn btn-dark btn-sm"
-                (click)="increaseQuantity(item.product, item.amount)"
+                (click)="increaseQuantity(item.productId, item.amount)"
               >
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </div>
             <button
               class="btn btn-danger align-self-md-start align-self-lg-center"
-              (click)="cartService.removeItemFromCart(item.product)"
+              (click)="cartService.removeItemFromCart(item.productId)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
               Remove
@@ -86,12 +86,12 @@
               {{ subTotal() | currency : 'INR' }}
             </div>
           </div>
-          <div class="d-flex justify-content-between">
+          <!-- <div class="d-flex justify-content-between">
             <div>Tax</div>
             <div>
               {{ tax() | currency : 'INR' }}
             </div>
-          </div>
+          </div> -->
           <div class="d-flex justify-content-between">
             <div>Delivery Charges</div>
             <div>

@@ -1,9 +1,18 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  input,
+  Input,
+  linkedSignal,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ApiService,
   ControlsOf,
   IAddProduct,
+  IApiResponse,
   IProduct,
   ValidationService,
 } from '@app-verse/shared';
@@ -20,7 +29,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'ecom-manage-product',
-  standalone: true,
   imports: [
     CommonModule,
     ErrorComponent,
@@ -34,8 +42,10 @@ export class ManageProductComponent implements OnInit {
   @ViewChild('productImageUpload', { static: true })
   productImageUpload!: ElementRef;
   @Input() id!: number;
-  @Input() productDetailRes!: { product: IProduct };
-  productDetail!: IProduct;
+  productDetailRes = input<IProduct | null>(null);
+  productDetail = linkedSignal<IProduct>(
+    () => this.productDetailRes() as IProduct
+  );
   productForm!: FormGroup<ControlsOf<IAddProduct>>;
   isSubmitted = false;
 
@@ -53,13 +63,9 @@ export class ManageProductComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    if (this.productDetailRes?.product) {
-      this.productDetail = this.productDetailRes.product;
-    }
-
     this.initializeProductForm();
-    if (this.productDetail) {
-      this.patchForm(this.productDetail);
+    if (this.productDetail()?.id) {
+      this.patchForm(this.productDetail());
     }
   }
 
@@ -71,15 +77,15 @@ export class ManageProductComponent implements OnInit {
 
     const payload: any = this.productForm.getRawValue();
     payload.price = Number(payload.price);
-    const apiUrl = this.productDetail
-      ? `/products/${this.productDetail._id}`
+    const apiUrl = this.productDetail()?.id
+      ? `/products/${this.productDetail().id}`
       : '/products';
 
     this.apiService.post(apiUrl, payload).subscribe({
       next: (res: any) => {
         this.coreService.showToast(
           'success',
-          this.productDetail
+          this.productDetail()?.id
             ? 'Product updated successfully'
             : 'Product created successfully'
         );
@@ -91,18 +97,20 @@ export class ManageProductComponent implements OnInit {
   uploadImage(event: any) {
     const formData = new FormData();
     formData.append('image', event?.target?.files[0]);
-    this.apiService.post('/products/uploadImage', formData).subscribe({
-      next: (res: any) => {
-        this.coreService.showToast(
-          'success',
-          'Product Image uploaded successfully'
-        );
-        this.productForm.controls.image.setValue(res?.image);
-      },
-      error: () => {
-        this.productForm.controls.image.setValue('');
-      },
-    });
+    this.apiService
+      .post<IApiResponse<any>>('/products/upload', formData)
+      .subscribe({
+        next: (res: IApiResponse<any>) => {
+          this.coreService.showToast(
+            'success',
+            'Product Image uploaded successfully'
+          );
+          this.productForm.controls.image.setValue(res?.data.image);
+        },
+        error: () => {
+          this.productForm.controls.image.setValue('');
+        },
+      });
   }
 
   private initializeProductForm(): void {

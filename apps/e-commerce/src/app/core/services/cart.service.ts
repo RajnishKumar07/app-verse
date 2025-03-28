@@ -11,7 +11,7 @@ export class CartService {
       price: number;
       image: string;
       amount: number;
-      product: string;
+      productId: number;
     }[]
   >([]);
   constructor(private coreService: CoreService) {}
@@ -25,12 +25,12 @@ export class CartService {
     price: number;
     image: string;
     amount: number;
-    product: string;
+    productId: number;
   }): void {
     this.cartItem.update((cart) => {
       if (item) {
         const isAlreadyExist = cart.find(
-          (cartItem) => cartItem.product === item.product
+          (cartItem) => cartItem.productId === item.productId
         );
 
         let successToastrMsg = '';
@@ -50,29 +50,30 @@ export class CartService {
    * To remove item from cart
    * @param product
    */
-  removeItemFromCart(product: string): void {
+  removeItemFromCart(productId: number): void {
     this.cartItem.update((cart) => {
-      const isItemExistInCart = cart.find((item) => item.product === product);
+      const isItemExistInCart = cart.find(
+        (item) => item.productId === productId
+      );
 
       if (isItemExistInCart) {
         const successToastrMsg = `${isItemExistInCart.name} is removed from your cart.`;
         this.coreService.showToast('success', successToastrMsg);
 
-        return cart.filter((item) => item.product !== product);
+        return cart.filter((item) => item.productId !== productId);
       }
 
       return cart;
     });
   }
 
-  updateCartItemQuantity(product: string, amount: number): void {
+  updateCartItemQuantity(productId: number, amount: number): void {
     this.cartItem.update((cart) => {
-      const indx = cart.findIndex((item) => item.product === product);
+      const indx = cart.findIndex((item) => item.productId === productId);
       if (indx > -1) {
         cart[indx].amount = amount;
       }
 
-      console.log('updateCartItemQuantity========>', cart, amount);
       return [...cart];
     });
   }

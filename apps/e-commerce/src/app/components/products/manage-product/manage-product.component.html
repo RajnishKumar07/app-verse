@@ -141,7 +141,9 @@
               <div class="my-4 row justify-content-center">
                 <div class="col-12 col-md-6">
                   <button class="btn btn-outline-primary w-100" type="submit">
-                    {{ productDetail ? 'Update Product' : 'Add new Product' }}
+                    {{
+                      productDetail()?.id ? 'Update Product' : 'Add new Product'
+                    }}
                   </button>
                 </div>
               </div>

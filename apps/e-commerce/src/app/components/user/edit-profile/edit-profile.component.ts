@@ -1,8 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 
 import { CoreService } from '../../../core/services';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ApiService, IUpdateDetail, IUser, ValidationService } from '@app-verse/shared';
+import {
+  ApiService,
+  IApiResponse,
+  IUpdateDetail,
+  IUser,
+  ValidationService,
+} from '@app-verse/shared';
 import {
   FormBuilder,
   FormGroup,
@@ -15,14 +21,13 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 @UntilDestroy()
 @Component({
   selector: 'ecom-edit-profile',
-  standalone: true,
   imports: [ErrorComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './edit-profile.component.html',
 })
 export class EditProfileComponent implements OnInit {
-  @Input() userDetail!: { user: IUser };
+  userDetail = input<IUser>();
   constructor(
-    private apiService:ApiService,
+    private apiService: ApiService,
     private coreService: CoreService,
     private fb: FormBuilder
   ) {}
@@ -33,6 +38,7 @@ export class EditProfileComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initializeForm();
+
     this.patchForm();
   }
 
@@ -40,22 +46,41 @@ export class EditProfileComponent implements OnInit {
     this.isSubmited = true;
     if (this.userForm.valid) {
       this.apiService
-        .post<{ user: IUpdateDetail }>(
-          '/users/updateUser',
-          this.userForm.getRawValue()
-        )
+        .put<
+          IApiResponse<{
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+          }>
+        >(`/users/${this.userDetail()?.id}`, this.userForm.getRawValue())
         .pipe(untilDestroyed(this))
-        .subscribe((res: { user: IUpdateDetail }) => {
-          if (res.user) {
-            this.coreService.user.update((user) => {
-              return res.user;
-            });
-            this.coreService.showToast(
-              'success',
-              'Profile updated successfully.'
-            );
+        .subscribe(
+          (
+            res: IApiResponse<{
+              id: number;
+              name: string;
+              email: string;
+              role: string;
+            }>
+          ) => {
+            if (res.data) {
+              const { email, name: user, id: userId, role } = res.data;
+              this.coreService.user.update((detail) => {
+                return {
+                  ...detail,
+                  user,
+                  userId,
+                  role,
+                } as IUpdateDetail;
+              });
+              this.coreService.showToast(
+                'success',
+                'Profile updated successfully.'
+              );
+            }
           }
-        });
+        );
     }
   }
 
@@ -67,9 +92,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   private patchForm() {
-    if (this.userDetail?.user) {
-      const { name, email } = this.userDetail.user;
-     
+    if (this.userDetail()) {
+      const { name, email } = this.userDetail() as IUser;
       this.userForm.patchValue({ name, email });
       this.userForm.controls['email'].disable({ onlySelf: true });
     }

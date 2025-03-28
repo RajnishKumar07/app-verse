@@ -1,8 +1,4 @@
-import {
-  ApplicationConfig,
-  importProvidersFrom,
-  APP_INITIALIZER,
-} from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -35,12 +31,10 @@ export const appConfig: ApplicationConfig = {
         errorHandlerInterceptor,
       ])
     ),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      multi: true,
-      deps: [ApiService, CoreService, TokenService],
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (initializeApp)(inject(ApiService), inject(CoreService), inject(TokenService));
+        return initializerFn();
+      }),
     provideToastr({
       timeOut: 3000,
       easeTime: 300,

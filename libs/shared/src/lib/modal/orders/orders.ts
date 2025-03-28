@@ -8,11 +8,14 @@ export interface IOrder {
   shippingFee: number;
   subtotal: number;
   total: number;
-  orderItems: IOrderItem[];
+  orderItem: IOrderItem[];
   status: string;
-  user: string;
+  user: {
+    id: number;
+    name: string;
+  };
   clientSecret: string;
-  _id: string;
+  id: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -23,6 +26,6 @@ export interface IOrderItem {
   image: string;
   price: number;
   amount: number;
-  product: string;
-  _id: string;
+  quantity: string;
+  id: string;
 }

@@ -2,14 +2,14 @@ import { Injectable, effect, signal } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { ApiService } from '@app-verse/shared';
+import { ApiService, IUpdateDetail } from '@app-verse/shared';
 import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreService {
-  user = signal({ user: '', userId: '', role: '' });
+  user = signal<IUpdateDetail>({ user: '', userId: null, role: '' });
 
   constructor(
     private toastr: ToastrService,
@@ -37,7 +37,7 @@ export class CoreService {
   logOut() {
     this.apiService.get('/auth/logout').subscribe({
       next: (res) => {
-        this.user.set({ user: '', userId: '', role: '' });
+        this.user.set({ user: '', userId: null, role: '' });
         this.navigateTo(['/']);
         this.tokenService.removeToken();
       },
