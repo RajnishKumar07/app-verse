@@ -13,16 +13,15 @@ import { CoreService } from "../../../core/services";
 import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
-  selector: "ecom-login",
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ErrorComponent,
-  ],
-  templateUrl: "./login.component.html",
+    selector: "ecom-login",
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ErrorComponent,
+    ],
+    templateUrl: "./login.component.html"
 })
 export default class LoginComponent implements OnInit {
   loginForm!: FormGroup;

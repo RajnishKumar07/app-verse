@@ -13,16 +13,15 @@ import { ErrorComponent } from "@app-verse/shared/src/lib/error";
 import { CoreService, TokenService } from "../../core/services";
 
 @Component({
-  selector: "app-verse-register",
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ErrorComponent
-],
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+    selector: "app-verse-register",
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ErrorComponent
+    ],
+    templateUrl: "./register.component.html",
+    styleUrls: ["./register.component.scss"]
 })
 export default class RegisterComponent {
   registerForm!: FormGroup;

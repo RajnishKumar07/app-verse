@@ -5,10 +5,9 @@ import { HeaderComponent } from '@app-verse/shared';
 import { CoreService } from '../core/services';
 
 @Component({
-  selector: 'ecom-layout',
-  standalone: true,
-  imports: [RouterModule, HeaderComponent],
-  templateUrl: './layout.component.html',
+    selector: 'ecom-layout',
+    imports: [RouterModule, HeaderComponent],
+    templateUrl: './layout.component.html'
 })
 export class LayoutComponent implements OnInit {
   @ViewChild('layout', { static: true }) layout!: ElementRef;

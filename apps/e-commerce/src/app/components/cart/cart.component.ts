@@ -18,12 +18,11 @@ import { CoreService } from '../../core/services';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'ecom-cart',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './cart.component.html',
-  styles: [
-    `
+    selector: 'ecom-cart',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './cart.component.html',
+    styles: [
+        `
       .product-image {
         height: 12rem;
         width: 100%;
@@ -34,7 +33,7 @@ import { RouterModule } from '@angular/router';
         }
       }
     `,
-  ],
+    ]
 })
 export default class CartComponent implements OnInit {
   shippingFee = 0;

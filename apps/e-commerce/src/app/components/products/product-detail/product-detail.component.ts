@@ -14,10 +14,9 @@ import { ReviewsComponent } from '../reviews/reviews.component';
 import { CartService } from '../../../core/services/cart.service';
 
 @Component({
-  selector: 'ecom-product-detail',
-  standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './product-detail.component.html',
+    selector: 'ecom-product-detail',
+    imports: [CommonModule, RouterModule, FormsModule],
+    templateUrl: './product-detail.component.html'
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   @Input() id!: number;

@@ -7,10 +7,9 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common';
 @Component({
-  selector: 'ecom-product-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule, NgbPaginationModule, NgOptimizedImage],
-  templateUrl: './product-list.component.html',
+    selector: 'ecom-product-list',
+    imports: [CommonModule, RouterModule, NgbPaginationModule, NgOptimizedImage],
+    templateUrl: './product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
   @Input() productListRes!: {

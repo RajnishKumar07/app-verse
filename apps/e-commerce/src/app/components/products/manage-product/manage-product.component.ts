@@ -19,16 +19,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
-  selector: 'ecom-manage-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ErrorComponent,
-    ReactiveFormsModule,
-    FormsModule,
-    NgSelectModule,
-  ],
-  templateUrl: './manage-product.component.html',
+    selector: 'ecom-manage-product',
+    imports: [
+        CommonModule,
+        ErrorComponent,
+        ReactiveFormsModule,
+        FormsModule,
+        NgSelectModule,
+    ],
+    templateUrl: './manage-product.component.html'
 })
 export class ManageProductComponent implements OnInit {
   @ViewChild('productImageUpload', { static: true })

@@ -14,10 +14,9 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 
 @UntilDestroy()
 @Component({
-  selector: 'ecom-edit-profile',
-  standalone: true,
-  imports: [ErrorComponent, FormsModule, ReactiveFormsModule],
-  templateUrl: './edit-profile.component.html',
+    selector: 'ecom-edit-profile',
+    imports: [ErrorComponent, FormsModule, ReactiveFormsModule],
+    templateUrl: './edit-profile.component.html'
 })
 export class EditProfileComponent implements OnInit {
   @Input() userDetail!: { user: IUser };

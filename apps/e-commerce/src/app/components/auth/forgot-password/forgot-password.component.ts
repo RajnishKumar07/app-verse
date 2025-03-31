@@ -16,16 +16,15 @@ import { UntilDestroy, } from '@ngneat/until-destroy';
 import { ApiService, EqualValidatorDirective, ValidationService } from '@app-verse/shared';
 @UntilDestroy()
 @Component({
-  selector: 'ecom-forgot-password',
-  standalone: true,
-  imports: [
-    ErrorComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    EqualValidatorDirective
-],
-  templateUrl: './forgot-password.component.html',
+    selector: 'ecom-forgot-password',
+    imports: [
+        ErrorComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        EqualValidatorDirective
+    ],
+    templateUrl: './forgot-password.component.html'
 })
 export default class ForgotPasswordComponent implements OnInit {
   @Input() token!: string;

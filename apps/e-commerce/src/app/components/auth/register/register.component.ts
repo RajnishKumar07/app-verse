@@ -15,17 +15,16 @@ import { CoreService } from "../../../core/services";
 import { ApiService, ValidationService } from "@app-verse/shared";
 
 @Component({
-  selector: "ecom-register",
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    ErrorComponent,
-  ],
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+    selector: "ecom-register",
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ErrorComponent,
+    ],
+    templateUrl: "./register.component.html",
+    styleUrls: ["./register.component.scss"]
 })
 export default class RegisterComponent {
   registerForm!: FormGroup;

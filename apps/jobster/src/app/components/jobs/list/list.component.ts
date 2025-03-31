@@ -6,11 +6,10 @@ import { ManageComponent } from "../manage/manage.component";
 import { ConfirmComponent, LoaderService } from "@app-verse/shared";
 import { CoreService } from "../../../core/services";
 @Component({
-  selector: "app-verse-list",
-  standalone: true,
-  imports: [CommonModule, DialogModule],
-  templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
+    selector: "app-verse-list",
+    imports: [CommonModule, DialogModule],
+    templateUrl: "./list.component.html",
+    styleUrls: ["./list.component.scss"]
 })
 export class ListComponent implements OnInit, OnDestroy {
   allJobs!: {

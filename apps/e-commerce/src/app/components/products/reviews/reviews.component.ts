@@ -12,10 +12,9 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 import { CoreService } from '../../../core/services';
 
 @Component({
-  selector: 'ecom-reviews',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ErrorComponent],
-  templateUrl: './reviews.component.html',
+    selector: 'ecom-reviews',
+    imports: [CommonModule, ReactiveFormsModule, ErrorComponent],
+    templateUrl: './reviews.component.html'
 })
 export class ReviewsComponent implements OnInit {
   reviewId!: string;

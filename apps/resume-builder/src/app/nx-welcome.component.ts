@@ -2,10 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 
 @Component({
-  selector: 'app-verse-nx-welcome',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'app-verse-nx-welcome',
+    imports: [],
+    template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      This is a starter component and can be deleted.
@@ -850,7 +849,7 @@ nx affected:e2e</pre>
       </div>
     </div>
   `,
-  styles: [],
-  encapsulation: ViewEncapsulation.None,
+    styles: [],
+    encapsulation: ViewEncapsulation.None
 })
 export class NxWelcomeComponent {}

@@ -4,10 +4,9 @@ import { IOrder, IOrderCreateRes, IOrderItem } from '@app-verse/shared';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'ecom-order-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './order-list.component.html',
+    selector: 'ecom-order-list',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './order-list.component.html'
 })
 export class OrderListComponent implements OnInit {
   @Input() allOrdersRes!: { orders: IOrder[] };

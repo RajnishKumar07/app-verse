@@ -12,15 +12,14 @@ import { ErrorComponent } from '@app-verse/shared/src/lib/error';
 import { CoreService } from '../../../core/services';
 
 @Component({
-  selector: 'ecom-change-password',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    EqualValidatorDirective,
-    ErrorComponent
-],
-  templateUrl: './change-password.component.html',
+    selector: 'ecom-change-password',
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        EqualValidatorDirective,
+        ErrorComponent
+    ],
+    templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
   passwordForm!: FormGroup;

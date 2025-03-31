@@ -5,10 +5,9 @@ import { CoreService } from '../../../core/services';
 import { ApiService } from '@app-verse/shared';
 
 @Component({
-  selector: 'ecom-user-verify-token',
-  standalone: true,
-  imports: [],
-  templateUrl: './user-verify-token.component.html',
+    selector: 'ecom-user-verify-token',
+    imports: [],
+    templateUrl: './user-verify-token.component.html'
 })
 export default class UserVerifyTokenComponent {
   @Input() token!: string;
