@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row w-100">
+    <div class="col-12 col-lg-8 mx-auto">
+      <div class="text-center">
+        <i class="fa fa-check-circle fa-2x text-success" aria-hidden="true"></i>
+        <h3>Thank you for your purchase</h3>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Order Summary</h5>
+          @for (orderItem of orderDetail()?.orderItem; track $index) {
+
+          <div class="row align-items-center">
+            <div class="col-2">
+              <img
+                [src]="orderItem.image"
+                class="rounded-2"
+                alt="product-img"
+                style="width: 4rem; height: 3rem; object-fit: cover"
+              />
+            </div>
+            <div class="col-4 col-md-7 text-truncate">{{ orderItem.name }}</div>
+            <div class="col-2 col-md-1">x {{ orderItem.quantity }}</div>
+            <div class="col-4 col-md-2">
+              {{ +orderItem.price * +orderItem.quantity | currency : 'INR' }}
+            </div>
+          </div>
+          <hr />
+          }
+          <div class="row">
+            <div class="col-6">
+              <label for="" class="fw-bold"> Total</label>
+            </div>
+            <div class="col-6 text-end">
+              <label for="" class="fw-bold"> Total</label>
+              {{ orderDetail()?.total | currency : 'INR' }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 text-center">
+        <a
+          class="btn btn-outline-primary"
+          [routerLink]="['/']"
+          routerLinkActive="router-link-active"
+        >
+          <i class="fa fa-shopping-cart mx-2"></i>Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

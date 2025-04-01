@@ -96,8 +96,9 @@ export default class CartComponent implements OnInit {
             '/stripe/create-checkout-session',
             {
               order: payload,
-              successUrl: 'http://localhost:5000/orders',
-              cancelUrl: 'http://localhost:5000/orders',
+              successUrl:
+                'http://localhost:5000/orders/success?session_id={CHECKOUT_SESSION_ID}',
+              cancelUrl: 'http://localhost:5000/cart',
             }
           )
           .subscribe({

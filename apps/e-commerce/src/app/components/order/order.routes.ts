@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { OrderListComponent } from './order-list.component';
 import { pageDataResolver } from '../../core/resolvers';
+import { SuccessPageComponent } from './success-page/success-page.component';
 
 export const ORDER_ROUTES: Route[] = [
   {
@@ -9,5 +10,9 @@ export const ORDER_ROUTES: Route[] = [
     resolve: {
       allOrdersRes: pageDataResolver('/orders/showAllMyOrders', false, '/'),
     },
+  },
+  {
+    path: 'success',
+    component: SuccessPageComponent,
   },
 ];
