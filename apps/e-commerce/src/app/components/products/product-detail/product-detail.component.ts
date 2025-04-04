@@ -144,15 +144,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         image,
         price,
       } = this.productDetail() as IProduct;
-      this.cartService.addItemToCart({
-        productId,
-        name,
-        amount: 1,
-        price,
-        image,
-      });
-
-      this.coreService.navigateTo(['/cart']);
+      this.cartService.addItemToCart(productId, 1);
     }
   }
 
@@ -179,15 +171,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         image,
         price,
       } = this.productDetail() as IProduct;
-      this.cartService.addItemToCart({
-        productId,
-        name,
-        amount: 1,
-        price,
-        image,
-      });
-
-      this.coreService.navigateTo(['/cart']);
+      this.cartService.addItemToCart(productId, 1, true);
     }
   }
 

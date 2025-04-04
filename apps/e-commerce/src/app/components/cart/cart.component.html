@@ -1,10 +1,13 @@
 <div class="container">
   <div class="row g-3 mb-5">
     <div class="col-12 col-lg-9">
-      @if ( cartService.cartItem().length) { @for (item of
-      cartService.cartItem(); track item.productId ) {
+      @if ( cartItem().length) { @for (item of cartItem(); track item.productId
+      ) {
 
-      <div class="card mb-3">
+      <div
+        class="card mb-3"
+        [ngClass]="{ 'out-of-stock': isOutOfStockFn(item) }"
+      >
         <div class="card-body">
           <div
             class="d-flex flex-column flex-lg-row gap-3 gap-lg-0 justify-content-end justify-content-lg-between align-items-lg-center"
@@ -24,29 +27,33 @@
               <button
                 type="button"
                 class="btn btn-dark btn-sm"
-                (click)="decreaseQuantity(item.productId, item.amount)"
+                (click)="decreaseQuantity(item.productId, item.quantity)"
               >
                 <i class="fa fa-minus" aria-hidden="true"></i>
               </button>
               <span class="fw-bold">
-                {{ item.amount }}
+                {{ item.quantity }}
               </span>
               <button
                 type="button"
                 class="btn btn-dark btn-sm"
-                (click)="increaseQuantity(item.productId, item.amount)"
+                (click)="increaseQuantity(item.productId, item.quantity)"
               >
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </div>
             <button
               class="btn btn-danger align-self-md-start align-self-lg-center"
-              (click)="cartService.removeItemFromCart(item.productId)"
+              (click)="cartService.removeItemFromCart(item.id)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
               Remove
             </button>
           </div>
+          @if(isOutOfStockFn(item)){
+
+          <label for="" class="text-danger">This item is out of stock.</label>
+          }
         </div>
       </div>
 
@@ -55,6 +62,7 @@
       <div class="d-flex w-100 justify-content-end">
         <button
           class="btn btn-warning btn-lg text-white"
+          [disabled]="isAnyItemOutOfStock()"
           (click)="placedOrder()"
         >
           Place Order

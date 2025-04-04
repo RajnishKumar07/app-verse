@@ -118,3 +118,11 @@ color: red;
 .isOutOfStock{
     filter:grayscale(1) brightness(0.5)
 }
+
+.out-of-stock{
+     background: #ededed;
+     .product-image {
+    filter:grayscale(1) brightness(0.5)
+
+    }
+}

@@ -12,6 +12,7 @@ import {
   ApiService,
   ConfirmComponent,
   IApiResponse,
+  ICartItem,
   IOrderCreateRes,
 } from '@app-verse/shared';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
@@ -44,6 +45,13 @@ export default class CartComponent implements OnInit {
   totalItem!: Signal<number>;
 
   dialogRef!: DialogRef<any, any>;
+  cartItem = computed(() => this.cartService.cartItem());
+  isAnyItemOutOfStock = computed(() => {
+    const outOfStock = this.cartItem().find((item) => {
+      return item.inventory - Number(item.reservedProductCount) < item.quantity;
+    });
+    return !!outOfStock;
+  });
   constructor(
     public cartService: CartService,
     private apiService: ApiService,
@@ -57,6 +65,8 @@ export default class CartComponent implements OnInit {
         this.shippingFee = 0;
       }
     });
+
+    this.cartService.getCartItem();
   }
 
   ngOnInit(): void {
@@ -65,17 +75,25 @@ export default class CartComponent implements OnInit {
     this.getTotal();
     this.getTotalItem();
   }
-
-  decreaseQuantity(productId: number, amount: number): void {
-    if (amount > 1)
-      this.cartService.updateCartItemQuantity(productId, amount - 1);
+  isOutOfStockFn(item: ICartItem) {
+    return item.inventory - Number(item.reservedProductCount) < item.quantity;
   }
 
-  increaseQuantity(productId: number, amount: number): void {
+  async decreaseQuantity(productId: number, amount: number): Promise<void> {
+    if (amount > 1) {
+      this.cartService.updateCartItemQuantity(productId, amount - 1);
+    }
+  }
+
+  async increaseQuantity(productId: number, amount: number): Promise<void> {
     this.cartService.updateCartItemQuantity(productId, amount + 1);
   }
 
   placedOrder() {
+    if (this.isAnyItemOutOfStock()) {
+      return;
+    }
+
     this.dialogRef = this.dialog.open(ConfirmComponent, {
       data: {
         confirmationTitle: 'Confirmation',
@@ -88,7 +106,7 @@ export default class CartComponent implements OnInit {
         const payload = {
           // tax: this.tax(),
           shippingFee: this.shippingFee,
-          items: this.cartService.cartItem(),
+          items: this.cartItem(),
         };
 
         this.apiService
@@ -107,31 +125,6 @@ export default class CartComponent implements OnInit {
               if (url) {
                 window.location.href = res.data?.url;
               }
-              // this.apiService
-              //   .post<IApiResponse<any>>('/stripe/create-checkout-session', {
-              //     orderId: res.data.order.id,
-              //     successUrl: 'http://localhost:5000/orders',
-              //     cancelUrl: 'http://localhost:5000/orders',
-              //   })
-              //   .subscribe({
-              //     next: (res: IApiResponse<any>) => {
-              //       console.log('res.------------->', res);
-              //       if (res.data?.url) {
-              //         window.location.href = res.data?.url;
-              //       }
-              //     },
-              //   });
-              // this.apiService
-              //   .post(`/orders/${res.data.order.id}`, { paymentIntentId })
-              //   .subscribe({
-              //     next: (res) => {
-              //       this.cartService.resetCart();
-              //       this.coreService.showToast(
-              //         'success',
-              //         'Order placed successfully'
-              //       );
-              //     },
-              //   });
             },
           });
       }
@@ -140,8 +133,8 @@ export default class CartComponent implements OnInit {
 
   private getTotalItem(): void {
     this.totalItem = computed<number>(() => {
-      return this.cartService.cartItem().reduce((acc, item) => {
-        acc = acc + item.amount;
+      return this.cartItem().reduce((acc, item) => {
+        acc = acc + item.quantity;
         return acc;
       }, 0);
     });
@@ -156,8 +149,8 @@ export default class CartComponent implements OnInit {
   private getSubTotal(): void {
     this.subTotal = computed(() => {
       let subTotal = 0;
-      this.cartService.cartItem().forEach((item) => {
-        subTotal += item.amount * item.price;
+      this.cartItem().forEach((item) => {
+        subTotal += item.quantity * item.price;
       });
 
       return subTotal;
