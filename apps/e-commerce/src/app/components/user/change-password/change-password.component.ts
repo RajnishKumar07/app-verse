@@ -54,7 +54,7 @@ export class ChangePasswordComponent implements OnInit {
       const data = this.passwordForm.value;
       delete data['confirmPassword'];
       this.apiService
-        .post<IApiResponse<null>>('/users/updateUserPassword', data)
+        .put<IApiResponse<null>>('/users/updateUserPassword', data)
         .subscribe((res: IApiResponse<null>) => {
           if (res?.message) {
             this.coreService.showToast('success', res.message);
