@@ -10,7 +10,7 @@
     "build:jobster": "nx run jobster:build:development",
     "build:jobster:prod": "nx run jobster:build:production",
     "build:e-commerce": "nx run e-commerce:build:development",
-    "build:e-commerce:prod": "nx run e-commerce:build:production"
+    "build:e-commerce:prod": "npx nx build e-commerce --configuration=production"
   },
   "private": true,
   "dependencies": {
