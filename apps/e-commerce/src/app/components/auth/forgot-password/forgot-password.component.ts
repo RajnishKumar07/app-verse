@@ -85,7 +85,7 @@ export default class ForgotPasswordComponent implements OnInit {
   forgotPassword(): void {
     this.isSubmitted = true;
     if (this.forgetPassword.valid) {
-      let api = '/auth/forget-password';
+      let api = '/auth/forgot-password';
       const data = {
         ...this.forgetPassword.value,
       };
