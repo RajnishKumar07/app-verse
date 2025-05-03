@@ -18,6 +18,7 @@ import {
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { CoreService } from '../../core/services';
 import { RouterModule } from '@angular/router';
+import { environment } from 'apps/e-commerce/src/environments/environment.prod';
 
 @Component({
   selector: 'ecom-cart',
@@ -114,9 +115,8 @@ export default class CartComponent implements OnInit {
             '/stripe/create-checkout-session',
             {
               order: payload,
-              successUrl:
-                'http://localhost:5000/orders/success?session_id={CHECKOUT_SESSION_ID}',
-              cancelUrl: 'http://localhost:5000/cart',
+              successUrl: `${environment.appUrl}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
+              cancelUrl: `${environment.appUrl}/cart`,
             }
           )
           .subscribe({
