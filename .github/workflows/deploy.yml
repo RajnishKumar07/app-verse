@@ -26,15 +26,17 @@ jobs:
       - name: Create output directory
         run: mkdir -p output
 
-      - name: Copy built files from Docker image
+      - name: Extract build output from Docker image
         run: |
+          mkdir -p dist
           container_id=$(docker create ecommerce-app)
-          docker cp $container_id:/usr/share/nginx/html ./output
+          docker cp $container_id:/usr/share/nginx/html ./dist/apps/e-commerce
           docker rm $container_id
+
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase Hosting
         run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ECOMMERCE_ANGULAR_V2 }}"
-        working-directory: ./output/html
+
