@@ -18,7 +18,7 @@ import {
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { CoreService } from '../../core/services';
 import { RouterModule } from '@angular/router';
-import { environment } from 'apps/e-commerce/src/environments/environment.prod';
+import { environment } from 'apps/e-commerce/src/environments/environment';
 
 @Component({
   selector: 'ecom-cart',
